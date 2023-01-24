@@ -1,0 +1,194 @@
+/* 
+removed this because it was showing up on the login page
+body {
+    border-style: solid;
+    height:600px;
+    border-radius: 10px;
+    border-color: #cab8b8;
+  } */
+
+.task-view-background{
+    background: linear-gradient(to left bottom, #1d4c94, #4266ac, #6280c5, #809cde, #9eb9f8);;
+    padding-top: 5em;
+    width: 100%;
+    min-height: 100%; 
+    color: white;
+}
+
+.mainpagecontainer{
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100vw;
+    background-image: linear-gradient(to right bottom, #1d4c94, #4266ac, #6280c5, #809cde, #9eb9f8);
+}
+
+
+.tasks-container{
+    display: flex;
+    justify-items: center;
+    background: whitesmoke;
+    border-style: solid;
+    height:90vh;
+    width: 100vw;
+    border-color: #cab8b8;
+    display: flex;
+    flex-direction: row;
+}
+
+.myDay-BulbIcon {
+    font-size: 20px;
+    margin-right: 5px;
+}
+.myDay-Header {
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+.myDay-task:hover  {
+    background-color: rgba(243, 242, 242, 0.8);
+}
+
+
+.tasks-header{
+    margin-right: 300px;
+}
+
+.completedTasks-header{
+    margin-right: 300px;
+}
+
+
+.addTask-button{
+    border: none;
+    background-color: white;
+    font-size: 13px;
+    
+}
+
+.addTask-input{
+    border: none;
+}
+
+.addTask-input:focus{
+    outline-color: rgb(202, 184, 184);
+}
+.addTask-input::placeholder {
+    text-align:center;
+}
+
+.MyDay-AddTask-Container{
+margin: 10px;
+padding: 5px;
+width: 500px;
+display: flex;
+flex-direction: row;
+justify-content: flex-start;
+border-style: solid;
+border-color: rgb(202, 184, 184);
+border-width: 3px;
+}
+
+
+
+
+.task-type-header{
+    margin-bottom: 2em;
+}
+
+.task-subtitle{
+    margin: 2em 0;
+
+}
+
+.inline-task-add-container, .inline-task-container{
+    display: flex;
+    flex-direction: row;
+    align-items: inherit;
+    width: 100%;
+    height: 100%;
+    justify-content: space-between;
+    background:none;
+}
+
+.task-container-text-input{
+    width: max-content;
+}
+
+.myDay-tasks{
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+}
+
+ /* Makes hover animation for all inline tasks except task-adder object */
+.myDay-tasks .p-chip:hover , .task-view-container .p-chip:hover{
+    background: #dbd8d8 !important;
+    cursor: pointer !important;
+    transition-property: 'background';
+    transition-duration: 0.3s;
+}
+
+.p-chip .p-inputtext{
+    border:none !important;
+    background: none;
+}
+
+/* hide if chips are unfilled */
+.inline-task-container .p-chips.p-component.p-inputwrapper.p-inputwrapper {
+    display: none !important;
+}
+
+/* sets display to visible if there are chips */
+.inline-task-container .p-chips.p-component.p-inputwrapper.p-inputwrapper-filled {
+    display:flex !important;
+    height: 3em !important;
+    overflow: hidden !important;
+}
+
+
+.p-checkbox .p-checkbox-box {
+    width: 30px !important;
+    height: 30px !important;
+    border-radius: 100% !important;
+    justify-self: center;
+}
+
+.p-panel-header {
+    background: #809cde !important;
+    color: white !important;
+    border-color:rgba(0,0,0,0.2) !important;
+}
+
+.p-panel{
+    box-shadow: -1px 16px 39px -15px rgba(0,0,0,0.67);
+}
+
+.p-panel-toggler{
+    color:aliceblue !important;
+}
+
+.p-panel .p-panel-header .p-panel-header-icon:enabled:hover {
+    color: #18181B;
+    border-color: transparent;
+    background: #4266ac !important;
+}
+
+.p-panel-content{
+    width:100% !important;
+    background: rgba(0,0,0,0.2) !important;
+}
+
+.myDay-tasks {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+}
+.weather-container{
+    Display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-evenly;
+    margin-top: '1rem';
+}

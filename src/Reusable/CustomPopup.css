@@ -1,0 +1,30 @@
+#task-editor-container{
+    display: flex;
+    flex-direction: column;
+    z-index: 100000 !important;
+    padding-top:20px;
+}
+
+#header{
+    width: 500px;
+}
+
+#title:disabled{
+    text-align: center;
+}
+
+label{
+    color: gray;
+}
+
+label:first-of-type{
+    margin-top: 1em;
+}
+
+div.p-inputgroup, div.description{
+    margin-bottom: 2em;
+}
+
+.description{
+    width: 100%;
+}

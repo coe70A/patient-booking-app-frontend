@@ -1,0 +1,17 @@
+.headerbar{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: flex-end;
+    width: 100%;
+    padding: 1em 0;
+    background: floralwhite;
+}
+
+.header-container{
+    width: 100%;
+}
+
+.logout-toggle:hover{
+    color: rgb(112, 104, 104) !important;
+}
