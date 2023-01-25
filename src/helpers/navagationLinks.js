@@ -8,11 +8,12 @@ export const navigationLinks = [
       ref: '#sign-up'
     },
     {
-      name: 'Patient Info',
-      ref: '#patient-info'
-    },
-    {
       name: 'Doctor-Info',
       ref: '#doctor-info'
     },
+    {
+      name: 'Patient Info',
+      ref: '#patient-info'
+    },
+    
   ]
