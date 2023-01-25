@@ -3,9 +3,17 @@ import "./regestration.css"
 import { RiSurgicalMaskFill } from 'react-icons/ri';
 import Form from 'react-bootstrap/Form';
 import { Calendar } from 'primereact/calendar';
+import Button from 'react-bootstrap/Button';
+
 function PatientInfo(props) {
     const [startDate, setStartDate] = useState(new Date());
-    const [date, setDate] = useState();
+    const [date, setDate] = useState(null);
+
+    const [email, setEmail] = useState(props.user?.email)
+    const [ohipNum, setOhipNum] = useState(null)
+    const [doctorId, setDoctorId] = useState(null)
+    const [submit, setSubmit] = useState(false)
+    const [phoneNum, setPhoneNum] = useState(null)
     
     //Declaring date variables 
     let today = new Date();
@@ -15,6 +23,13 @@ function PatientInfo(props) {
     let prevYear = (prevMonth === 11) ? year - 1 : year;
     let nextMonth = (month === 11) ? 0 : month + 1;
     let nextYear = (nextMonth === 0) ? year + 1 : year;
+
+    useEffect(() => {
+      if(ohipNum !== null && doctorId !== null && phoneNum !== null && date !== null)
+        setSubmit(true) //submit button activated
+      else
+        setSubmit(false)
+    })
   return (
     <div className="patient_container" id ="patient-info">
         <div style={{textAlign: "center"}}>
@@ -23,26 +38,26 @@ function PatientInfo(props) {
         <Form>
         <fieldset disabled = {props.userSignUp ? false : true}>
         <div className="inner_patient_container" id ="patient-info">
-            <Form.Group className="mb-3" controlId="formBasicEmail" style={{marginRight: '3rem'}}>
+            <Form.Group className="mb-3" controlId="formBasicEmail" style={{marginRight: '3rem'}} >
                 <Form.Label>Email address: *</Form.Label>
-                <Form.Control type="email" placeholder="Enter email" />
+                <Form.Control type="email" value={email} placeholder={email} disabled={true}/>
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="cnt1">
                 <Form.Label>OHIP NUMBER: *</Form.Label>
-                <Form.Control type="text" placeholder="XXXX-XXX-XX" />
+                <Form.Control type="text" placeholder="XXXX-XXX-XX" value={ohipNum} onChange={(e) => setOhipNum(e.target.value)}/>
         </Form.Group>
 
       </div>
       <div className="inner_patient_container" id ="patient-info">
         <Form.Group className="mb-3" controlId="cnt2" style={{marginRight: '3rem'}}>
                 <Form.Label>Doctor ID: *</Form.Label>
-                <Form.Control type="text" placeholder="Enter Doctor Id" />
+                <Form.Control type="text" placeholder="Enter Doctor Id" value={doctorId} onChange={(e) => setDoctorId(e.target.value)}/>
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="cnt3">
                 <Form.Label>Phone Number: *</Form.Label>
-                <Form.Control type="text" placeholder="Enter Phone Number" />
+                <Form.Control type="text" placeholder="Enter Phone Number" value={phoneNum} onChange={(e) => {setPhoneNum(e.target.value)}}/>
         </Form.Group>  
     </div>
       <label>Date of Birth: *</label>
@@ -50,9 +65,13 @@ function PatientInfo(props) {
         <Calendar value={date} onChange={(e) => setDate(e.value)} disabled={!props.userSignUp}></Calendar>
         </div>
 
+        <Button variant="primary" type="submit" disabled={!submit} onClick={console.log("hello")}>
+          Submit
+        </Button>
+
       </fieldset>
       </Form>
-      
+
     </div>
   )
 }

@@ -4,6 +4,7 @@ import { FaStethoscope } from 'react-icons/fa';
 import Form from 'react-bootstrap/Form';
 import Autocomplete, {usePlacesWidget} from "react-google-autocomplete";
 import { Calendar } from 'primereact/calendar';
+import Button from 'react-bootstrap/Button';
 
 function DoctorInfo(props) {
     const { ref: bootstrapRef } = usePlacesWidget({
@@ -13,6 +14,14 @@ function DoctorInfo(props) {
 
       const [startDate, setStartDate] = useState(new Date());
     const [date, setDate] = useState();
+
+    const [email, setEmail] = useState(props.user?.email)
+    const [clinicName, setClinicName] = useState(null)
+    const [street, setStreet] = useState(null)
+    const [postal, setPostal] = useState(null)
+    const [phoneNum, setPhoneNum] = useState(null)
+    const [submit, setSubmit] = useState(false)
+    
     
     //Declaring date variables 
     let today = new Date();
@@ -22,6 +31,13 @@ function DoctorInfo(props) {
     let prevYear = (prevMonth === 11) ? year - 1 : year;
     let nextMonth = (month === 11) ? 0 : month + 1;
     let nextYear = (nextMonth === 0) ? year + 1 : year;
+
+    useEffect(() => {
+      if(clinicName && street && postal && phoneNum)
+        setSubmit(true)
+      else
+        setSubmit(false)
+    })
 
   return (
     <div className="doctor_container" id ="doctor-info">
@@ -33,25 +49,25 @@ function DoctorInfo(props) {
         <div className="inner_patient_container" id ="patient-info" >
             <Form.Group className="mb-3" controlId="formBasicEmail" style={{marginRight: '3rem'}}>
                 <Form.Label>Email address</Form.Label>
-                <Form.Control type="email" placeholder="Enter email" />
+                <Form.Control type="email" placeholder={props.user?.email} value={email} disabled={true}/>
         </Form.Group>
       
 
         <Form.Group className="mb-3" controlId="formBasicEmail">
-                <Form.Label>Doctor Id: *</Form.Label>
-                <Form.Control type="text" placeholder="5-digit numerical id" />
+                <Form.Label>Phone Number: *</Form.Label>
+                <Form.Control type="text" placeholder="Enter Phone Number" value={phoneNum} onChange={(e) => setPhoneNum(e.target.value)}/>
         </Form.Group>
       </div>
 
       <div className="inner_patient_container" id ="patient-info" >
         <Form.Group className="mb-3" controlId="formBasicEmail" style={{marginRight: '3rem'}}>
                 <Form.Label>Cilinic Name: *</Form.Label>
-                <Form.Control type="text" placeholder="Enter Clinic Name" />
+                <Form.Control type="text" placeholder="Enter Clinic Name" value={clinicName} onChange={(e) => setClinicName(e.target.value)}/>
         </Form.Group>
 
             <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>Street: *</Form.Label>
-                <Form.Control type="text" placeholder="Postal Codes" />
+                <Form.Control type="text" placeholder="Enter Street Name" value={street} onChange={(e) => setStreet(e.target.value)}/>
         </Form.Group>
         </div>
 
@@ -59,7 +75,7 @@ function DoctorInfo(props) {
         <div className="inner_patient_container" id ="patient-info" >
         <Form.Group className="mb-3" controlId="formBasicEmail" style={{marginRight: '3rem'}}>
                 <Form.Label>Postal Code: *</Form.Label>
-                <Form.Control type="text" placeholder="Enter Postal Code" />
+                <Form.Control type="text" placeholder="Enter Postal Code" value={postal} onChange={(e) => setPostal(e.target.value)} />
         </Form.Group>
 
         <Form.Group controlId="formBasicEmail">
@@ -72,6 +88,11 @@ function DoctorInfo(props) {
         <div class="p-inputgroup">
         <Calendar value={date} onChange={(e) => setDate(e.value)} disabled={!props.doctorSignUp}></Calendar>
         </div>
+
+
+        <Button variant="primary" type="submit" disabled={!submit}>
+        Submit
+        </Button>
 
       </fieldset>
       </Form>
