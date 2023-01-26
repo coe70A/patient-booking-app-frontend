@@ -31,7 +31,7 @@ function PatientInfo(props) {
         setSubmit(false)
     })
   return (
-    <div className="patient_container" id ="patient-info">
+    <div className="patient_container" >
         <div style={{textAlign: "center"}}>
             <h1>Patient Information <RiSurgicalMaskFill /> </h1> 
         </div>
@@ -49,7 +49,7 @@ function PatientInfo(props) {
         </Form.Group>
 
       </div>
-      <div className="inner_patient_container" id ="patient-info">
+      <div className="inner_patient_container" >
         <Form.Group className="mb-3" controlId="cnt2" style={{marginRight: '3rem'}}>
                 <Form.Label>Doctor ID: *</Form.Label>
                 <Form.Control type="text" placeholder="Enter Doctor Id" value={doctorId} onChange={(e) => setDoctorId(e.target.value)}/>

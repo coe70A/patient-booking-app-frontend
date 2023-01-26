@@ -62,7 +62,7 @@
     background-color: white;
     padding: 3rem;
     margin-top: 50%;
-    box-shadow: 20px 12px 2px 1px rgba(190, 190, 199, 0.2);
+    box-shadow: 20px 12px 2px 8px rgba(190, 190, 199, 0.2);
 }
 
 .about_container img{
@@ -132,3 +132,6 @@
     padding: 1rem; 
 }
 
+.form-check-label{
+    display: inline;
+}

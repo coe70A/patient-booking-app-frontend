@@ -46,7 +46,7 @@ function DoctorInfo(props) {
         </div>
         <Form>
         <fieldset disabled = {props.doctorSignUp ? false : true}>
-        <div className="inner_patient_container" id ="patient-info" >
+        <div className="inner_patient_container"  >
             <Form.Group className="mb-3" controlId="formBasicEmail" style={{marginRight: '3rem'}}>
                 <Form.Label>Email address</Form.Label>
                 <Form.Control type="email" placeholder={props.user?.email} value={email} disabled={true}/>
@@ -59,7 +59,7 @@ function DoctorInfo(props) {
         </Form.Group>
       </div>
 
-      <div className="inner_patient_container" id ="patient-info" >
+      <div className="inner_patient_container" >
         <Form.Group className="mb-3" controlId="formBasicEmail" style={{marginRight: '3rem'}}>
                 <Form.Label>Cilinic Name: *</Form.Label>
                 <Form.Control type="text" placeholder="Enter Clinic Name" value={clinicName} onChange={(e) => setClinicName(e.target.value)}/>
@@ -72,7 +72,7 @@ function DoctorInfo(props) {
         </div>
 
 
-        <div className="inner_patient_container" id ="patient-info" >
+        <div className="inner_patient_container" >
         <Form.Group className="mb-3" controlId="formBasicEmail" style={{marginRight: '3rem'}}>
                 <Form.Label>Postal Code: *</Form.Label>
                 <Form.Control type="text" placeholder="Enter Postal Code" value={postal} onChange={(e) => setPostal(e.target.value)} />
