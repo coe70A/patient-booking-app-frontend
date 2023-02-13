@@ -111,6 +111,16 @@
     margin-top: 10rem;
 }
 
+.about_container {
+    background-image: linear-gradient(to right top, #347a2d, #4b962f, #66b22c, #85cf25, #a8eb12);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 3rem; 
+    margin-top: 10rem;
+}
+
 /* Patient Info */
 .patient_container {
     background-color: rgb(233, 252, 213);

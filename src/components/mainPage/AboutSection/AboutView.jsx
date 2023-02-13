@@ -31,7 +31,7 @@ function AboutView (props) {
         
       </div>
 
-      <DoctorInfo doctorSignUp={true} user={user}/>
+      <DoctorInfo doctorSignUp={true} user={user} css_style={"about_container"}/>
       {/* <Dialog header="Patient Information" visible={openPop} style={{ width: '50vw' }} onHide={() => setOpenPop(false)}>
         <CustomPopup closeTab={closing} data={taskdData} getCall={getCall}/>
       </Dialog> */}

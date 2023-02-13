@@ -41,7 +41,7 @@ function DoctorInfo(props) {
     },[clinicName,street,phoneNum,postal])
     
   return (
-    <div className="doctor_container" id ="doctor-info">
+    <div className={props.css_style} id ="doctor-info">
         <div style={{textAlign: "center"}}>
             <h1>Doctor Information <FaStethoscope /> </h1> 
         </div>
