@@ -14,9 +14,9 @@ function SideBar (props) {
   const [selectedTaskView, setSelectedTaskView] = useState(null);
 
   const tasks = [
-    { name: 'All', code: 'all' , icon: 'pi-globe'},
-    { name: 'Completed', code: 'completed', icon: 'pi-check-circle' },
-    { name: 'Today', code: 'today' , icon: 'pi-sun'},
+    { name: 'All Appointments', code: 'all' , icon: 'pi-globe'},
+    // { name: 'Completed', code: 'completed', icon: 'pi-check-circle' },
+    { name: 'Todays Appointments', code: 'today' , icon: 'pi-sun'},
     { name: 'Calendar', code: 'calendarView', icon: 'pi-calendar' }
   ];
 
@@ -41,7 +41,7 @@ function SideBar (props) {
 
   return (
     <div className='SideBar-containier'>
-      <div className='pi pi-bolt'> Tasks </div>
+      <div className='pi pi-bolt'> Views </div>
 
  
 

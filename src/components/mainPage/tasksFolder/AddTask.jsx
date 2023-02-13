@@ -44,7 +44,7 @@ function AddTask ({ onAdd }) {
              <InputText 
                 style={{width:'80%'}} 
                 value={tempTask} 
-                placeholder="Task for the day is..."
+                placeholder="Schedule Appointment"
                 onChange={(e) => setTempTask(e.target.value)} />  
           </div>
       );

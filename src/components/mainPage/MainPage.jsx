@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import TaskView from './tasksFolder/TaskView'
 import HeaderBar from './HeaderBar'
 import SideBar from './SideBar'
-import CompletedView from './CompletedTasks/CompletedView'
+import AboutView from './AboutSection/AboutView'
 import TodayView from './TodayTasks/TodayView'
 import SearchedTaksView from './SearchedTasks/SearchedTasksView'
 import 'primereact/resources/themes/lara-light-indigo/theme.css'
@@ -106,7 +106,7 @@ function MainPage (props) {
         {isLoading ?
         <img style={{ width: '80%', height: '80%' }} src={require('../../Images/Turtle_Loading.gif')} alt="loading-gif" /> : null }
         {(options?.all & !isLoading)? <TaskView tasks={tasks} setTasks={setTasks} getCall={getCall} deleteTask={deleteTask} completeTask={completeTask} /> : null}
-        {(options?.completed & !isLoading) ? <CompletedView tasks={tasks} completeTask={completeTask} deleteTask={deleteTask} getCall={getCall}/> : null}
+        {(options?.completed & !isLoading) ? <AboutView tasks={tasks} completeTask={completeTask} deleteTask={deleteTask} getCall={getCall}/> : null}
         {(options?.today & !isLoading) ? <TodayView tasks={tasks} completeTask={completeTask} deleteTask={deleteTask} getCall={getCall}/> : null}
         {(options?.calendarView & !isLoading) ? <CalendarView tasks={tasks} setTasks={setTasks} wether={wether} setWether={setWether}/> : null}
         {(!options?.all & !options?.completed & !options?.today & !options?.calendarView & !isLoading) ? <SearchedTaksView searchedResult={searchedResult} tasks={tasks} completeTask={completeTask} deleteTask={deleteTask} getCall={getCall}/>: null}

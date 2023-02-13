@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import '../../../Stylings/mainPage.css'
 import { FaRegLightbulb } from 'react-icons/fa'
-import Tasks from '../tasksFolder/Tasks'
+import Appointment from '../tasksFolder/Appointment'
 import 'primeicons/primeicons.css'
 import CustomPopup from '../../../Reusable/CustomPopup'
 import { Dialog } from 'primereact/dialog';
@@ -35,9 +35,9 @@ function SearchedTasksView (props) {
       <div className="task-view-container">
         <i className='pi pi-search' style={{'fontSize': '2em'}}></i>
         <h2 className = 'task-type-header'>The Searched Results are...</h2>
-        {tasks.map((i) => searchedTasks(i.name) ? <Tasks key= {i.id} task={ i } onDelete={deleteTask} onCheck={completeTask} opening={opening}/> : null)}
+        {tasks.map((i) => searchedTasks(i.name) ? <Appointment key= {i.id} task={ i } onDelete={deleteTask} onCheck={completeTask} opening={opening}/> : null)}
       </div>
-      <Dialog header="Task Editor" visible={openPop} style={{ width: '50vw' }} onHide={() => setOpenPop(false)}>
+      <Dialog header="Patient Information" visible={openPop} style={{ width: '50vw' }} onHide={() => setOpenPop(false)}>
         {openPop ? <CustomPopup closeTab={closing} data={taskdData} getCall={getCall}/>: ""}
       </Dialog>
     </div>

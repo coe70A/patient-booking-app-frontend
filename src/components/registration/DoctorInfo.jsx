@@ -5,16 +5,17 @@ import Form from 'react-bootstrap/Form';
 import Autocomplete, {usePlacesWidget} from "react-google-autocomplete";
 import { Calendar } from 'primereact/calendar';
 import Button from 'react-bootstrap/Button';
+import { Link, useNavigate } from 'react-router-dom'
 
 function DoctorInfo(props) {
     const { ref: bootstrapRef } = usePlacesWidget({
         apiKey: "AIzaSyDBg83-05jKeRrmQ6LqDtNI3AM_Dmsm5rI",
         onPlaceSelected: (place) => console.log(place),
       });
-
-      const [startDate, setStartDate] = useState(new Date());
+    const navigate = useNavigate()
+    const [startDate, setStartDate] = useState(new Date());
     const [date, setDate] = useState();
-
+    
     const [email, setEmail] = useState(props.user?.email)
     const [clinicName, setClinicName] = useState(null)
     const [street, setStreet] = useState(null)
@@ -33,12 +34,12 @@ function DoctorInfo(props) {
     let nextYear = (nextMonth === 0) ? year + 1 : year;
 
     useEffect(() => {
-      if(clinicName && street && postal && phoneNum)
+      if(clinicName !== null && street !== null && postal !== null && phoneNum !== null)
         setSubmit(true)
       else
         setSubmit(false)
-    })
-
+    },[clinicName,street,phoneNum,postal])
+    
   return (
     <div className="doctor_container" id ="doctor-info">
         <div style={{textAlign: "center"}}>
@@ -61,7 +62,7 @@ function DoctorInfo(props) {
 
       <div className="inner_patient_container" >
         <Form.Group className="mb-3" controlId="formBasicEmail" style={{marginRight: '3rem'}}>
-                <Form.Label>Cilinic Name: *</Form.Label>
+                <Form.Label>Clinic Name: *</Form.Label>
                 <Form.Control type="text" placeholder="Enter Clinic Name" value={clinicName} onChange={(e) => setClinicName(e.target.value)}/>
         </Form.Group>
 
@@ -90,7 +91,7 @@ function DoctorInfo(props) {
         </div>
 
 
-        <Button variant="primary" type="submit" disabled={!submit}>
+        <Button variant="primary" type="submit" disabled={!submit} onClick={() => submit ? navigate('/MainPage') : null}>
         Submit
         </Button>
 

@@ -5,14 +5,13 @@ import '../../../Stylings/mainPage.css'
 import CustomPopup from '../../../Reusable/CustomPopup'
 import { Dialog } from 'primereact/dialog';
 import { FaRegLightbulb } from 'react-icons/fa'
-import Tasks from '../tasksFolder/Tasks'
-
-
-function CompletedView (props) {
+import DoctorInfo from '../../registration/DoctorInfo';
+import { useAuth0 } from '@auth0/auth0-react'
+function AboutView (props) {
   const {tasks, setTasks, getCall, deleteTask, completeTask} = props;
   const [openPop, setOpenPop] = useState(false)
   const [taskdData, setTaskData] = useState()
-
+  const { user, logout } = useAuth0()
     const closing = () => {
       setOpenPop(false)
     }
@@ -28,16 +27,16 @@ function CompletedView (props) {
     <div className='task-view-background' style={{backgroundImage: 'linear-gradient(to right top, #347a2d, #4b962f, #66b22c, #85cf25, #a8eb12)'}}>
       <div className="task-view-container">
         <i className='pi pi-check' style={{'fontSize': '2em'}}></i>
-        <h2 className = 'task-type-header'>Completed</h2>
-        {tasks.map((i) => i.is_completed && i.is_completed !== null ? <Tasks key= {i.id} task={ i } onDelete={deleteTask} onCheck={completeTask} opening={opening} /> : null)}
+        <h2 className = 'task-type-header'>About</h2>
+        
       </div>
 
-      
-      <Dialog header="Task Editor" visible={openPop} style={{ width: '50vw' }} onHide={() => setOpenPop(false)}>
+      <DoctorInfo doctorSignUp={true} user={user}/>
+      {/* <Dialog header="Patient Information" visible={openPop} style={{ width: '50vw' }} onHide={() => setOpenPop(false)}>
         <CustomPopup closeTab={closing} data={taskdData} getCall={getCall}/>
-      </Dialog>
+      </Dialog> */}
     </div>
   )
 }
 
-export default CompletedView
+export default AboutView

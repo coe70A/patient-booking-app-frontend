@@ -10,11 +10,13 @@ import { Button } from 'primereact/button'
 import '../../Stylings/headerbar.css'
 import Dropdown from 'react-bootstrap/Dropdown'
 import { useAuth0 } from '@auth0/auth0-react'
+import AboutView from './AboutSection/AboutView';
+import { Link, useNavigate } from 'react-router-dom'
 
 function HeaderBar ({onSearch}) {
     const { user, logout } = useAuth0()
     const [searchResult, setSearchResult] = useState('')
-
+    const navigate = useNavigate()
     const submit = (e) => {
       console.log(e)
       e.preventDefault()
@@ -35,7 +37,13 @@ function HeaderBar ({onSearch}) {
                 label:'Logout',
                 icon:'pi pi-fw pi-power-off',
                 command: ()=> logout({ returnTo: window.location.origin }),
-             }
+             },
+             {
+               label:'About',
+               icon:'pi pi-fw pi-power-off',
+               command: ()=>{ navigate('/MainPage/About') },
+            },
+             
            ]
         },
      ];

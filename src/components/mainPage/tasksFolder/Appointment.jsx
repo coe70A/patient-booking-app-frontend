@@ -11,7 +11,7 @@ import { Button } from 'primereact/button'
 import { Chips } from 'primereact/chips';
 import { Checkbox } from 'primereact/checkbox';
 
-function Tasks ({ task, onDelete, onCheck, opening }) {
+function Appointment ({ task, onDelete, onCheck, opening }) {
   const [checked, setChecked] = useState(false)
   const [categories, setCategories] = useState([]);
 
@@ -72,39 +72,19 @@ function Tasks ({ task, onDelete, onCheck, opening }) {
 
   return (
     <Chip style={{padding:'1em', width: '80%', justifyContent: 'space-evenly', background: 'white', margin: '1em 0',cursor:'pointer'}} onClick={() => opening(task)} template={taskTemplate} />
-    // <div className='myDay-tasks-container'>
-
-      
-      
-    //   <div className='myDay-task'>
-    //     <span><input type='checkbox' checked={task?.status} onChange={handleCheckbox}></input></span>
-    //     {task.task}
-
-    //     <span>
-
-    //       <button className='deleteTask-button' onClick={() => onDelete(task.id)}>
-
-    //         <RiDeleteBinLine />
-
-    //       </button>
-
-    //     </span>
-
-    //   </div>
-
-    // </div>
+    
   )
 }
 
-Tasks.defaultProps = {
+Appointment.defaultProps = {
   task: 'test'
 }
 
-Tasks.propTypes = {
+Appointment.propTypes = {
   task: propTypes.any,
   id: propTypes.any,
   onDelete: propTypes.any,
   onCheck: propTypes.any
 }
 
-export default Tasks
+export default Appointment

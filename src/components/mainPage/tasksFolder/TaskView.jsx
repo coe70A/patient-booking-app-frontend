@@ -1,7 +1,7 @@
 /* eslint-disable */
 import React, { useState, useEffect } from 'react'
 import { FaRegLightbulb } from 'react-icons/fa'
-import Tasks from './Tasks'
+import Appointment from './Appointment'
 import AddTask from './AddTask'
 import 'primeicons/primeicons.css'
 import '../../../Stylings/mainPage.css'
@@ -73,22 +73,22 @@ function TaskView (props) {
     <div className='task-view-background'>
 
       <i className='pi pi-globe' style={{'fontSize': '2em'}}></i>
-      <h2 className = 'task-type-header'>All Tasks</h2>
+      <h2 className = 'task-type-header'>Clinic Name</h2>
 
 
       <AddTask className='MyDay-AddTask-Container' onAdd = {addTask}/>
 
-      <h5 className='task-subtitle'>Your Tasks</h5>
+      <h5 className='task-subtitle'>All Schedueled Appointments</h5>
 
       <div className='myDay-tasks'>
       
           {tasks?.map((i) => !i.is_completed && i?.is_completed !== null ? <div className='myDay-tasks'> 
-          <Tasks key= {i.id} task={ i } onDelete={deleteTask} onCheck={completeTask} opening={opening} /> </div> : null)}
+          <Appointment key= {i.id} task={ i } onDelete={deleteTask} onCheck={completeTask} opening={opening} /> </div> : null)}
 
         <div className="tasks-panel" style={{marginTop: '100px',padding:'0px 0em',width:'80%'}}>
-          <Panel header="Completed Tasks" toggleable collapsed={true} style={{background:'rgba(255,255,255,0.1)'}}>
+          <Panel header="Patients Already Seen" toggleable collapsed={true} style={{background:'rgba(255,255,255,0.1)'}}>
             <ScrollPanel style={{width: '100%', height: '300px'}}>
-              {tasks?.map((i) => i.is_completed && i.is_completed !== null ? <Tasks opening={opening} key= {i.id} task={ i } onDelete={deleteTask} onCheck={completeTask} /> : null)}
+              {tasks?.map((i) => i.is_completed && i.is_completed !== null ? <Appointment opening={opening} key= {i.id} task={ i } onDelete={deleteTask} onCheck={completeTask} /> : null)}
             </ScrollPanel>
           
           </Panel>
@@ -96,7 +96,7 @@ function TaskView (props) {
       </div>
       {/* {openPop ? <CustomPopup closeTab={closing} data={taskdData} getCall={getCall}/>: ""} */}
 
-      <Dialog header="Task Editor" visible={openPop} style={{ width: '50vw' }} onHide={() => setOpenPop(false)}>
+      <Dialog header="Patient Informaion" visible={openPop} style={{ width: '50vw' }} onHide={() => setOpenPop(false)}>
         <CustomPopup closeTab={closing} data={taskdData} getCall={getCall}/>
       </Dialog>
     </div>
