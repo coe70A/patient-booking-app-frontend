@@ -20,6 +20,13 @@ function MainPage (props) {
   const [wether, setWether] = useState([]); // prevents multiple renders of the weather class
   const [searchedResult, setSearchedResult] = useState('')
 
+  const params = new URLSearchParams(props.location.search);
+  const var1 = params.get('doctor_id');
+
+  // console.log("DOCTOR: ", var1)
+
+
+console.log({var1})
   const onSearchResult = (result) => {
     setSearchedResult(result)
     if (result){

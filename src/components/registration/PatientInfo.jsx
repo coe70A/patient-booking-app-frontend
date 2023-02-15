@@ -5,6 +5,8 @@ import Form from 'react-bootstrap/Form';
 import { Calendar } from 'primereact/calendar';
 import Button from 'react-bootstrap/Button';
 
+import axios from 'axios';
+
 function PatientInfo(props) {
     const [startDate, setStartDate] = useState(new Date());
     const [date, setDate] = useState(null);
@@ -14,6 +16,8 @@ function PatientInfo(props) {
     const [doctorId, setDoctorId] = useState(null)
     const [submit, setSubmit] = useState(false)
     const [phoneNum, setPhoneNum] = useState(null)
+
+    const [isError, setIsError] = useState(false);
     
     //Declaring date variables 
     let today = new Date();
@@ -30,12 +34,36 @@ function PatientInfo(props) {
       else
         setSubmit(false)
     })
+
+  const registerPatient = async () => {
+    const reqBody = {
+      "email": email,
+      "first_name": props.user?.name,
+      "last_name": props.user?.name,
+      "phone": phoneNum,
+      "birthday": "09/01/2023", // TODO: Add birthday
+      "ohip_number": ohipNum,
+      "doctor_id": doctorId
+    }  
+
+    const req = await axios.post(`http://localhost:5000/api/patient/register`, reqBody)
+
+    if (req.status === 200) {
+      console.log('Succesfully registered patient... Navigating to main page')
+      navigate('/MainPage')
+    }
+    
+    console.log('Request failed')
+    setIsError(true)
+  }
+
+  
   return (
     <div className="patient_container" >
         <div style={{textAlign: "center"}}>
             <h1>Patient Information <RiSurgicalMaskFill /> </h1> 
         </div>
-        <Form>
+        <Form onSubmit={(event) => event.preventDefault()}>
         <fieldset disabled = {props.userSignUp ? false : true}>
         <div className="inner_patient_container" id ="patient-info">
             <Form.Group className="mb-3" controlId="formBasicEmail" style={{marginRight: '3rem'}} >
@@ -65,9 +93,11 @@ function PatientInfo(props) {
         <Calendar value={date} onChange={(e) => setDate(e.value)} disabled={!props.userSignUp}></Calendar>
         </div>
 
-        <Button variant="primary" type="submit" disabled={!submit} onClick={console.log("hello")}>
+        <Button variant="primary" type="submit" disabled={!submit} onClick={() => registerPatient()}>
           Submit
         </Button>
+
+        {isError ? 'Encountered error logging in' : null}
 
       </fieldset>
       </Form>

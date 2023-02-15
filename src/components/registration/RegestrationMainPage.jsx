@@ -14,7 +14,7 @@ export default function RegestrationMainPage() {
     const [doctorSignUp, setDctorSignUp] = useState(false)
     const [userSignUp, setUserSignUp] = useState(false)
     const { user, logout } = useAuth0()
-    const navigate = useNavigate()
+    // const navigate = useNavigate()
     
     const particlesInit = async (main) => {
         await loadFull(main);

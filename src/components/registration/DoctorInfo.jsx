@@ -6,6 +6,7 @@ import Autocomplete, {usePlacesWidget} from "react-google-autocomplete";
 import { Calendar } from 'primereact/calendar';
 import Button from 'react-bootstrap/Button';
 import { Link, useNavigate } from 'react-router-dom'
+import axios from 'axios';
 
 function DoctorInfo(props) {
     const { ref: bootstrapRef } = usePlacesWidget({
@@ -22,6 +23,11 @@ function DoctorInfo(props) {
     const [postal, setPostal] = useState(null)
     const [phoneNum, setPhoneNum] = useState(null)
     const [submit, setSubmit] = useState(false)
+
+    const [isError, setIsError] = useState(false)
+
+
+    const [em, setEm] = useState(); // This is just to test
     
     
     //Declaring date variables 
@@ -39,18 +45,49 @@ function DoctorInfo(props) {
       else
         setSubmit(false)
     },[clinicName,street,phoneNum,postal])
+
+    const registerDoctor = async () => {
+      const reqBody = {
+        "email": em,
+        "first_name": props.user?.name,
+        "last_name": props.user?.name,
+        "phone": phoneNum,
+        "birthday": "09/01/2023",
+        "clinic": {
+          "name": clinicName,
+          "postal_code": postal,
+          "province": "ON", // TODO: Add province and city
+          "city": "Toronto",
+          "country": "CA",
+          "street_number": "123",
+          "street_name": street
+        }
+      }    
+
+      const req = await axios.post(`http://localhost:5000/api/doctor/register`, reqBody)
+
+      if (req.status === 200) {
+        console.log('Succesfully registered doctor... Navigating to main page')
+        // history.push('/MainPage?var1=value1&var2=value2');
+        navigate(`/MainPage`)
+      }
+      
+      console.log('Request failed')
+      setIsError(true)
+    }
+  
     
   return (
     <div className={props.css_style} id ="doctor-info">
         <div style={{textAlign: "center"}}>
             <h1>Doctor Information <FaStethoscope /> </h1> 
         </div>
-        <Form>
+        <Form onSubmit={(event) => event.preventDefault()}>
         <fieldset disabled = {props.doctorSignUp ? false : true}>
         <div className="inner_patient_container"  >
             <Form.Group className="mb-3" controlId="formBasicEmail" style={{marginRight: '3rem'}}>
                 <Form.Label>Email address</Form.Label>
-                <Form.Control type="email" placeholder={props.user?.email} value={email} disabled={true}/>
+                <Form.Control type="email" placeholder={props.user?.email} value={em} onChange={(e) => setEm(e.target.value)} disabled={false}/>
         </Form.Group>
       
 
@@ -81,7 +118,7 @@ function DoctorInfo(props) {
 
         <Form.Group controlId="formBasicEmail">
                 <Form.Label> City: * </Form.Label>
-                <Form.Control type="email" ref={bootstrapRef} />
+                <Form.Control ref={bootstrapRef} />
             </Form.Group>
             </div>
 
@@ -91,9 +128,12 @@ function DoctorInfo(props) {
         </div>
 
 
-        <Button variant="primary" type="submit" disabled={!submit} onClick={() => submit ? navigate('/MainPage') : null}>
+
+        <Button variant="primary" type="submit" disabled={!submit} onClick={() => submit ? registerDoctor(): null}>
         Submit
         </Button>
+
+        {isError ? 'Encountered error logging in' : null}
 
       </fieldset>
       </Form>
