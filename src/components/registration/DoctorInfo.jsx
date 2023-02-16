@@ -18,12 +18,12 @@ function DoctorInfo(props) {
     const [date, setDate] = useState();
     
     const [email, setEmail] = useState(props.user?.email)
-    const [clinicName, setClinicName] = useState(null)
+    const [clinicName, setClinicName] = useState(props.reg_data !== null? props.reg_data?.clinic?.name : null)
     const [street, setStreet] = useState(null)
     const [postal, setPostal] = useState(null)
     const [phoneNum, setPhoneNum] = useState(null)
     const [submit, setSubmit] = useState(false)
-
+    const [tmp_data, setTmp_data] = useState();
     const [isError, setIsError] = useState(false)
 
 
@@ -63,10 +63,13 @@ function DoctorInfo(props) {
           "street_name": street
         }
       }    
-
+      setTmp_data(reqBody)
       const req = await axios.post(`http://localhost:5000/api/doctor/register`, reqBody)
 
       if (req.status === 200) {
+        sessionStorage.setItem("doctor_id", req.data.doctor_id);
+        sessionStorage.setItem("regInfo", JSON.stringify(tmp_data))
+        sessionStorage.getItem("regInfo")
         console.log('Succesfully registered doctor... Navigating to main page')
         // history.push('/MainPage?var1=value1&var2=value2');
         navigate(`/MainPage`)

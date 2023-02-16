@@ -17,7 +17,7 @@ function NavBar() {
   return (
     <div>
         <Navbar className="navigation_container" 
-          style={{position: "fixed"}}
+          style={{position: "fixed", width: "100%"}}
           collapseOnSelect
           expand="md"> 
             <Navbar.Brand style={{marginLeft: "1rem"}} href="#home"> PAA </Navbar.Brand>

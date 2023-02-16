@@ -11,6 +11,9 @@ function AboutView (props) {
   const {tasks, setTasks, getCall, deleteTask, completeTask} = props;
   const [openPop, setOpenPop] = useState(false)
   const [taskdData, setTaskData] = useState()
+  const [regData, setRegData] = useState({})
+  const [tmp, setTmp] = useState(false)
+  
   const { user, logout } = useAuth0()
     const closing = () => {
       setOpenPop(false)
@@ -31,7 +34,7 @@ function AboutView (props) {
         
       </div>
 
-      <DoctorInfo doctorSignUp={true} user={user} css_style={"about_container"}/>
+      <DoctorInfo doctorSignUp={true} user={user} css_style={"doc_about_container"} reg_Data={setRegData}/>
       {/* <Dialog header="Patient Information" visible={openPop} style={{ width: '50vw' }} onHide={() => setOpenPop(false)}>
         <CustomPopup closeTab={closing} data={taskdData} getCall={getCall}/>
       </Dialog> */}

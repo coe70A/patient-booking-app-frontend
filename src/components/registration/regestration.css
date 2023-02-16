@@ -2,7 +2,7 @@
 .main-header {
     display: flex;
     position: absolute;
-    color: var(white);
+    color:white;
     top: 0%;
     left: 0;
     right: 0;
@@ -28,7 +28,7 @@
 
 /* Nav Bar CSS */
 .navigation_container {
-    background-color: var(--nav-color);
+    background-color: black;
     color: white;
     z-index: 2;
     top: 0;
@@ -111,7 +111,7 @@
     margin-top: 10rem;
 }
 
-.about_container {
+.doc_about_container {
     background-image: linear-gradient(to right top, #347a2d, #4b962f, #66b22c, #85cf25, #a8eb12);
     color: white;
     display: flex;

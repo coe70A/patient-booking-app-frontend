@@ -27,10 +27,10 @@ function CustomPopup(props) {
     }
 
     const [edit, setEdit] = useState(true)
-    const [id, setId] = useState(props?.data?.id)
-    const [task, setTask] = useState(props?.data?.name)
+    const [patient_id, setpatient_id] = useState(props?.data?.patient_id)
+    const [task, setTask] = useState(props?.data?.appointment_name)
     const [desc, setDec] = useState(props?.data?.description)
-    const [patientReason, setPatientReason] = useState("Filled out by patient")
+    const [patientReason, setPatientReason] = useState(props?.data?.description)
     const [priority, setPriority] = useState(props?.data?.priority)
     const [onSave, SetOnSave] = useState(true)
     const [date, setDate] = useState(props?.data?.schedule_date);
@@ -106,23 +106,9 @@ function CustomPopup(props) {
                 onChange={(event) => setTask(event.target.value)}
                 disabled={edit}
             />
-
-        <label> Priority: </label>
-        <div class="p-inputgroup">
-            <span className="p-inputgroup-addon">
-                <i className="pi pi-sort-amount-up"></i>
-            </span>
-            <Dropdown style={{ left: '0%', marginRight: '2rem' }} >
-                <Dropdown.Toggle variant="success" id="dropdown-basic" style={{borderColor: 'transparent' }} disabled={edit}>
-                    {priority}
-                </Dropdown.Toggle>
-
-                <Dropdown.Menu>
-                    <Dropdown.Item onClick={ () => setPriority(1)}> 1 </Dropdown.Item>
-                    <Dropdown.Item onClick={ () => setPriority(2)}> 2 </Dropdown.Item>
-                    <Dropdown.Item onClick={ () => setPriority(3)}> 3 </Dropdown.Item>
-                </Dropdown.Menu>
-            </Dropdown>
+        <div style={{display:'flex', flexDirection: "row", justifyContent:'space-between'}}>
+            <label> Patient ID: </label>
+            <label style={{marginTop: '12px'}}> {patient_id} </label>
         </div>
 
         <label> Status: </label>
