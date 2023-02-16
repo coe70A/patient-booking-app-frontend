@@ -29,19 +29,32 @@ function TaskView (props) {
   const addTask = async (task) => {
   // const [tasks, setTasks] = useState(data)
   // const [tempTask, setTempTask] = useState('');
-  const res = await fetch(`http://localhost:5000/api/tasks/user/${user.email}`, {
+  const res = await fetch(`http://localhost:5000/api/patient/appointment`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },  
-    body: JSON.stringify([{
-      name: task,
-      is_completed: false,
-      description: task,
-      priority: 2,
-      schedule_date: `${year}-${month}-${day}`
-    }])
+    body: JSON.stringify({
+      "doctor_id": "0169dd18-b0e7-42cd-9fb1-19ebcf90806c",
+      "patient_id": "123123123123",
+      "schedule_date": "10/02/2022 4:00am",
+      "appointment_name": task,
+      "description": "this is just a routine checkup"
+    })
   })
+  // const res = await fetch(`http://localhost:5000/api/tasks/user/${user.email}`, {
+  //   method: 'POST',
+  //   headers: {
+  //     'Content-Type': 'application/json'
+  //   },  
+  //   body: JSON.stringify([{
+  //     name: task,
+  //     is_completed: false,
+  //     description: task,
+  //     priority: 2,
+  //     schedule_date: `${year}-${month}-${day}`
+  //   }])
+  // })
     const data = await res.json()
     .catch(err => console.log(err))
     console.log(data?.code)
@@ -82,13 +95,16 @@ function TaskView (props) {
 
       <div className='myDay-tasks'>
       
+          {/* {tasks?.length !== 0 ? <h1>{JSON.stringify(tasks)}</h1> : null} */}
+          {/* {tasks?.map((i) => true ? <div className='myDay-tasks'> 
+          <Appointment key= {i.id} task={ i } onDelete={deleteTask} onCheck={completeTask} opening={opening} /> </div> : null)} */}
           {tasks?.map((i) => !i.is_completed && i?.is_completed !== null ? <div className='myDay-tasks'> 
           <Appointment key= {i.id} task={ i } onDelete={deleteTask} onCheck={completeTask} opening={opening} /> </div> : null)}
 
         <div className="tasks-panel" style={{marginTop: '100px',padding:'0px 0em',width:'80%'}}>
           <Panel header="Patients Already Seen" toggleable collapsed={true} style={{background:'rgba(255,255,255,0.1)'}}>
             <ScrollPanel style={{width: '100%', height: '300px'}}>
-              {tasks?.map((i) => i.is_completed && i.is_completed !== null ? <Appointment opening={opening} key= {i.id} task={ i } onDelete={deleteTask} onCheck={completeTask} /> : null)}
+              {/* {tasks?.map((i) => i.is_completed && i.is_completed !== null ? <Appointment opening={opening} key= {i.id} task={ i } onDelete={deleteTask} onCheck={completeTask} /> : null)} */}
             </ScrollPanel>
           
           </Panel>

@@ -10,6 +10,7 @@ import 'primereact/resources/themes/lara-light-indigo/theme.css'
 import CalendarView from './CalendarView'
 import { useEffect } from 'react';
 import { useAuth0 } from '@auth0/auth0-react'
+import axios from 'axios'
 
 function MainPage (props) {
   const [option, setOption] = useState();
@@ -20,13 +21,13 @@ function MainPage (props) {
   const [wether, setWether] = useState([]); // prevents multiple renders of the weather class
   const [searchedResult, setSearchedResult] = useState('')
 
-  const params = new URLSearchParams(props.location.search);
-  const var1 = params.get('doctor_id');
+  // const params = new URLSearchParams(props.location.search);
+  // const var1 = params.get('doctor_id');
 
   // console.log("DOCTOR: ", var1)
 
 
-console.log({var1})
+// console.log({var1})
   const onSearchResult = (result) => {
     setSearchedResult(result)
     if (result){
@@ -52,55 +53,65 @@ console.log({var1})
 
   //API calls used by all classes
 
-  const getCall = () => {
-    const fetchTasks = async() => {
-      const tasksResp = await fetch(`http://localhost:5000/api/tasks/user/${user.email}`);
-      return tasksResp;
-    }
-    fetchTasks()
-    .then(resp => resp.json())
-    .then(data => setTasks(data))
-    .catch(err => setTasks("err"))
+  const getCall = async() => {
+    const taskResp = await fetch(`http://localhost:5000/api/doctor/0169dd18-b0e7-42cd-9fb1-19ebcf90806c/appointment`);
+
+    console.log("TASK RESP")
+    console.log(taskResp.data)
+
+    // setTasks(taskResp.data);
+
+    // fetchTasks()
+    // .then(resp => resp.json())
+    // .then(data => setTasks(data))
+    // .catch(err => setTasks("err"))
   }
 
   // Delete Task
   const deleteTask = async (id) => {
-    const res = await fetch(`http://localhost:5000/api/tasks/${id}`, { method: 'DELETE' })
-    const data = await res.json()
-    if(data?.code.toString() === '200'){
-      setTasks(tasks.filter((task) => task.id !== id ))
-    }
+    // const res = await fetch(`http://localhost:5000/api/tasks/${id}`, { method: 'DELETE' })
+    // const data = await res.json()
+    // if(data?.code.toString() === '200'){
+    //   setTasks(tasks.filter((task) => task.id !== id ))
+    // }
   }
 
 
   const completeTask =  async (id, isComplete) => {
-    const requestOptions = {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        is_completed: isComplete
+  //   const requestOptions = {
+  //     method: 'PUT',
+  //     headers: { 'Content-Type': 'application/json' },
+  //     body: JSON.stringify({
+  //       is_completed: isComplete
 
-      })
-  };
-  await fetch(`http://localhost:5000/api/tasks/${id}`, requestOptions)
-      //.then(response => response.json())
-      .catch(err => console.log(err))
-      getCall()
-      //setTasks([...tasks, {is_completed: isComplete}])
+  //     })
+  // };
+  // await fetch(`http://localhost:5000/api/tasks/${id}`, requestOptions)
+  //     //.then(response => response.json())
+  //     .catch(err => console.log(err))
+  //     getCall()
+  //     //setTasks([...tasks, {is_completed: isComplete}])
     
   }
 
   useEffect(() => {
     
     const fetchTasks = async() => {
-      const tasksResp = await fetch(`http://localhost:5000/api/tasks/user/${user.email}`);
-      return tasksResp;
+      const taskResp = await axios.get(`http://localhost:5000/api/doctor/0169dd18-b0e7-42cd-9fb1-19ebcf90806c/appointment`);
+
+      console.log("TASK RESP")
+      console.log(taskResp.data?.appointments)
+      return taskResp.data?.appointments;
     }
     fetchTasks()
-    .then(resp => resp.json())
-    .then(data => setTasks(data))
-    .catch(err => setTasks("err"))
+    .then(data => {
+      console.log("INSIDE THEN")
+      console.log(data)
+      setTasks(data)})
+    // .catch(err => setTasks("err"))
     setIsLoading(false)
+
+    setTasks([])
   }, [])
   
 
@@ -113,10 +124,11 @@ console.log({var1})
         {isLoading ?
         <img style={{ width: '80%', height: '80%' }} src={require('../../Images/Turtle_Loading.gif')} alt="loading-gif" /> : null }
         {(options?.all & !isLoading)? <TaskView tasks={tasks} setTasks={setTasks} getCall={getCall} deleteTask={deleteTask} completeTask={completeTask} /> : null}
-        {(options?.completed & !isLoading) ? <AboutView tasks={tasks} completeTask={completeTask} deleteTask={deleteTask} getCall={getCall}/> : null}
-        {(options?.today & !isLoading) ? <TodayView tasks={tasks} completeTask={completeTask} deleteTask={deleteTask} getCall={getCall}/> : null}
-        {(options?.calendarView & !isLoading) ? <CalendarView tasks={tasks} setTasks={setTasks} wether={wether} setWether={setWether}/> : null}
-        {(!options?.all & !options?.completed & !options?.today & !options?.calendarView & !isLoading) ? <SearchedTaksView searchedResult={searchedResult} tasks={tasks} completeTask={completeTask} deleteTask={deleteTask} getCall={getCall}/>: null}
+        {/* {(options?.all & !isLoading)? <TaskView tasks={tasks} setTasks={setTasks} getCall={getCall} deleteTask={deleteTask} completeTask={completeTask} /> : null} */}
+        {/* {(options?.completed & !isLoading) ? <AboutView tasks={tasks} completeTask={completeTask} deleteTask={deleteTask} getCall={getCall}/> : null} */}
+        {/* {(options?.today & !isLoading) ? <TodayView tasks={tasks} completeTask={completeTask} deleteTask={deleteTask} getCall={getCall}/> : null} */}
+        {/* {(options?.calendarView & !isLoading) ? <CalendarView tasks={tasks} setTasks={setTasks} wether={wether} setWether={setWether}/> : null} */}
+        {/* {(!options?.all & !options?.completed & !options?.today & !options?.calendarView & !isLoading) ? <SearchedTaksView searchedResult={searchedResult} tasks={tasks} completeTask={completeTask} deleteTask={deleteTask} getCall={getCall}/>: null} */}
         </div>
         
       </div>
