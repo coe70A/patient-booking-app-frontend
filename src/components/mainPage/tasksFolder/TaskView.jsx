@@ -41,7 +41,7 @@ function TaskView (props) {
     },  
     body: JSON.stringify({
       "doctor_id": doc_id,
-      "patient_id": "test123",
+      "patient_id": "9883219878932",
       "schedule_date": `${year}-${month}-${day}`,
       "appointment_name": task,
       "description": "this is just a routine checkup"

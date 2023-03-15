@@ -78,15 +78,20 @@ function CustomPopup(props) {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            name: task,
-            description: desc,
-            priority: priority,
-            schedule_date: date,
-            categories: categories
-
-          })
+            "doctor_id": "b645640e-143c-4c29-907c-516c0d550ce2",    
+            "patient_id": "9883219878932",
+            "schedule_date": date,
+            "appointment_name": task,
+            "description": desc,
+            "illnesses": categories,
+        }
+        
+        
+        
+        
+        )
       };
-      await fetch(`http://localhost:5000/api/tasks/${props?.data?.id}`, requestOptions)
+      await fetch(`http://localhost:5000/api/doctor/appointment/${props?.data?.id}`, requestOptions)
           //.then(response => response.json())
           .catch(err => console.log(err))
           props.getCall()
