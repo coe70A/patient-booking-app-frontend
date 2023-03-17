@@ -3,12 +3,10 @@ import React, { useEffect, useState } from 'react'
 import 'primeicons/primeicons.css'
 import '../../../Stylings/mainPage.css'
 import CustomPopup from '../../../Reusable/CustomPopup'
-import { Dialog } from 'primereact/dialog';
-import { FaRegLightbulb } from 'react-icons/fa'
-import DoctorInfo from '../../registration/DoctorInfo';
+
 import { useAuth0 } from '@auth0/auth0-react'
 import PatientInfo from '../../registration/PatientInfo';
-function AboutView (props) {
+function PatientAbout (props) {
   const {tasks, setTasks, getCall, deleteTask, completeTask} = props;
   const [openPop, setOpenPop] = useState(false)
   const [taskdData, setTaskData] = useState()
@@ -35,13 +33,9 @@ function AboutView (props) {
         
       </div>
 
-      <DoctorInfo doctorSignUp={true} user={user} css_style={"doc_about_container"} reg_Data={setRegData}/>
-      {/* <Dialog header="Patient Information" visible={openPop} style={{ width: '50vw' }} onHide={() => setOpenPop(false)}>
-        <CustomPopup closeTab={closing} data={taskdData} getCall={getCall}/>
-      </Dialog> */}
-      <PatientInfo patientSignUp={true} user={user} css_style={"doc_about_container"} reg_Data={setRegData}/>
+      <PatientInfo userSignUp={true} user={user} css_style={"doc_about_container"} reg_Data={setRegData}/>
     </div>
   )
 }
 
-export default AboutView
+export default PatientAbout

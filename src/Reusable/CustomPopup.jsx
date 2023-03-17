@@ -34,7 +34,7 @@ function CustomPopup(props) {
     const [priority, setPriority] = useState(props?.data?.priority)
     const [onSave, SetOnSave] = useState(true)
     const [date, setDate] = useState(props?.data?.schedule_date);
-    
+    const [ohip, setOhip] = useState(props?.ohip ? props?.ohip : null)
     const [editorState, setEditorState] = useState(() =>
     EditorState.createEmpty()
   );
@@ -74,12 +74,13 @@ function CustomPopup(props) {
     },[date])
 
     const updateTask =  async () => {
+        console.log("Inside !!!!")
         const requestOptions = {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            "doctor_id": "b645640e-143c-4c29-907c-516c0d550ce2",    
-            "patient_id": "9883219878932",
+            "doctor_id": props?.doc_id,    
+            "patient_id": ohip,
             "schedule_date": date,
             "appointment_name": task,
             "description": desc,
@@ -111,9 +112,18 @@ function CustomPopup(props) {
                 onChange={(event) => setTask(event.target.value)}
                 disabled={edit}
             />
-        <div style={{display:'flex', flexDirection: "row", justifyContent:'space-between'}}>
-            <label> Patient ID: </label>
-            <label style={{marginTop: '12px'}}> {patient_id} </label>
+        <label> Patient OHIP Number: </label> 
+        <div class="p-inputgroup">
+            {/* <label> Patient ID: </label>
+            <label style={{marginTop: '12px'}}> {patient_id} </label> */}
+            <InputText 
+                id="Patient ID"
+                value={patient_id} 
+                type="text" 
+                className="p-inputtext-lg block" 
+                onChange={(event) => setTask(event.target.value)}
+                disabled={edit}
+            />
         </div>
 
         <label> Status: </label>

@@ -15,13 +15,13 @@ import axios from 'axios'
 function MainPage (props) {
   const [option, setOption] = useState();
   const [options, setOptions] = useState({ all: true, completed: false, error: false, today: false, calendarView: false})
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(false)
   const [tasks, setTasks] = useState([]);
   const { user, logout } = useAuth0()
   const [wether, setWether] = useState([]); // prevents multiple renders of the weather class
   const [searchedResult, setSearchedResult] = useState('')
   const [doctoId, setDoctorId] = useState();
-
+  const [doctorInfo, SetDoctorInfo] = useState();
   // const params = new URLSearchParams(props.location.search);
   // const var1 = params.get('doctor_id');
 
@@ -55,78 +55,79 @@ function MainPage (props) {
   //API calls used by all classes
 
   const getCall = async() => {
-    let doc_id = sessionStorage.getItem("doctor_id")
-    const taskResp = await fetch(`http://localhost:5000/api/doctor/${doc_id}/appointment`);
+    console.log(doctoId)
+    const taskResp = await axios.get(`http://localhost:5000/api/doctor/${doctoId}/appointment`);
 
-    console.log("TASK RESP")
-    console.log(taskResp.data)
-
-    // setTasks(taskResp.data);
-
-    // fetchTasks()
-    // .then(resp => resp.json())
-    // .then(data => setTasks(data))
-    // .catch(err => setTasks("err"))
+    console.log("APPT")
+    console.log(taskResp.data?.appointments)
+    setTasks(taskResp.data?.appointments)
   }
 
   // Delete Task
   const deleteTask = async (id) => {
-    // const res = await fetch(`http://localhost:5000/api/tasks/${id}`, { method: 'DELETE' })
-    // const data = await res.json()
-    // if(data?.code.toString() === '200'){
-    //   setTasks(tasks.filter((task) => task.id !== id ))
-    // }
+   
   }
 
 
   const completeTask =  async (id, isComplete) => {
-  //   const requestOptions = {
-  //     method: 'PUT',
-  //     headers: { 'Content-Type': 'application/json' },
-  //     body: JSON.stringify({
-  //       is_completed: isComplete
-
-  //     })
-  // };
-  // await fetch(`http://localhost:5000/api/tasks/${id}`, requestOptions)
-  //     //.then(response => response.json())
-  //     .catch(err => console.log(err))
-  //     getCall()
-  //     //setTasks([...tasks, {is_completed: isComplete}])
-    
+  
   }
 
-  useEffect(() => {
+  // useEffect(() => {
+  
+  //   const fetchTasks = async() => {
+  //   const taskResp = await axios.get(`http://localhost:5000/api/doctor/${doctoId}/appointment`);
+
+  //     console.log("TASK RESP")
+  //     console.log(taskResp.data?.appointments)
+
+
+
+  //   return taskResp.data?.appointments;
+  //   }
+  //   fetchTasks()
+  //   .then(data => {
+  //     console.log("check 2")
+  //     console.log(data)
+  //     setTasks(data)})
+  //   // .catch(err => setTasks("err"))
+  //   setIsLoading(false)
+
+  //   setTasks([])
     
-    setDoctorId(sessionStorage.getItem("doctor_id"))
-  })
+  // }, [])
+
 
   useEffect(() => {
-    let doc_id = (sessionStorage.getItem("doctor_id"))
+   
     const fetchTasks = async() => {
-    const taskResp = await axios.get(`http://localhost:5000/api/doctor/${doc_id}/appointment`);
+      const DoctorInfo = await axios.get(`http://localhost:5000/api/user/${user.email}`);
+    
 
-      console.log("TASK RESP")
+      const doctoId = DoctorInfo?.data.data?.doctor_id;
+      console.log(doctoId)
+      SetDoctorInfo(DoctorInfo.data)
+      console.log("DOCO ID");
+      
+      setDoctorId(doctoId)
+      const taskResp = await axios.get(`http://localhost:5000/api/doctor/${doctoId}/appointment`);
+
+      console.log("APPT")
       console.log(taskResp.data?.appointments)
+      setTasks(taskResp.data?.appointments)
+      
+
       return taskResp.data?.appointments;
     }
     fetchTasks()
-    .then(data => {
-      console.log("INSIDE THEN")
-      console.log(data)
-      setTasks(data)})
-    // .catch(err => setTasks("err"))
-    setIsLoading(false)
-
-    setTasks([])
   }, [])
-  
+
 
   return (
     <div className='mainpagecontainer'>
-      <HeaderBar onSearch={onSearchResult}/>
+      <HeaderBar onSearch={onSearchResult} isPatient={false}/>
       <div className = "tasks-container">
-        <SideBar options={options} changeOpt={changeOpt} searchedResult={searchedResult}/>
+        <SideBar options={options} changeOpt={changeOpt} searchedResult={searchedResult} isPatient={false}/>
         <div style={{flex: 1, overflow: 'auto'}}>
         {isLoading ?
         <img style={{ width: '80%', height: '80%' }} src={require('../../Images/Turtle_Loading.gif')} alt="loading-gif" /> : null }

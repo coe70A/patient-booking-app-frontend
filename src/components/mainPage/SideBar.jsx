@@ -10,15 +10,29 @@ function SideBar (props) {
   const [options, setOptions] = useState({ all: false, completed: false, calendarView: false })
 
   const [test, setTest] = useState(true);
-
+  const [tasks, setTasks] = useState([]) 
   const [selectedTaskView, setSelectedTaskView] = useState(null);
+  useEffect(() => {
+    if(props.isPatient){
+    const tmp = [
+      { name: 'All Appointments', code: 'all' , icon: 'pi-globe'},
 
-  const tasks = [
-    { name: 'All Appointments', code: 'all' , icon: 'pi-globe'},
-    // { name: 'Completed', code: 'completed', icon: 'pi-check-circle' },
-    { name: 'Todays Appointments', code: 'today' , icon: 'pi-sun'},
-    { name: 'Calendar', code: 'calendarView', icon: 'pi-calendar' }
-  ];
+      { name: 'Calendar', code: 'calendarView', icon: 'pi-calendar' }
+    ];
+    setTasks(tmp)
+  }
+  else{
+    const tmp = [
+      { name: 'All Appointments', code: 'all' , icon: 'pi-globe'},
+      // { name: 'Completed', code: 'completed', icon: 'pi-check-circle' },
+      { name: 'Todays Appointments', code: 'today' , icon: 'pi-sun'},
+      { name: 'Calendar', code: 'calendarView', icon: 'pi-calendar' }
+    ];
+    setTasks(tmp)
+  }
+    
+  }, [])
+ 
 
   const taskTemplate = (option) => {
     return (

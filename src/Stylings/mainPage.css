@@ -15,6 +15,14 @@ body {
     color: white;
 }
 
+.task-view-background-pg2{
+    background: linear-gradient(to left bottom, #8c1d94, #ac42a2, #c562b8, #de80de, #f89ee3);;
+    padding-top: 5em;
+    width: 100%;
+    min-height: 100%; 
+    color: white;
+}
+
 .mainpagecontainer{
     display: flex;
     flex-direction: column;

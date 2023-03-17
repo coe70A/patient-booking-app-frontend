@@ -67,7 +67,7 @@ function CalendarView(props){
         </div>
 
         <Calendar localizer={localizer} events={events} 
-        startAccessor="start" endAccessor="end" titleAccessor="name" allDayAccessor="is_completed" style={{height: "600px", margin:"50px", width:"90%",color:'black' ,background: 'white', border:'solid white',padding:'20px',borderRadius:'2%', boxShadow: '-1px 16px 39px -15px rgba(0,0,0,0.67)'}} />
+        startAccessor="start" endAccessor="end" titleAccessor="appointment_name" allDayAccessor="is_completed" style={{height: "600px", margin:"50px", width:"90%",color:'black' ,background: 'white', border:'solid white',padding:'20px',borderRadius:'2%', boxShadow: '-1px 16px 39px -15px rgba(0,0,0,0.67)'}} />
       </div>    
       )
 }

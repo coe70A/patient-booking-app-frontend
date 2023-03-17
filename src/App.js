@@ -13,6 +13,8 @@ import { Auth0Provider, withAuthenticationRequired } from '@auth0/auth0-react'
 import MainPage from './components/mainPage/MainPage'
 import RegestrationMainPage from './components/registration/RegestrationMainPage'
 import AboutView from './components/mainPage/AboutSection/AboutView'
+import PatientMainPage from './components/PatientMain/PatientMainPage'
+import PatientAbout from './components/mainPage/AboutSection/PatientAbout'
 // Encapsulate your components that require auth with this
 const ProtectedRoute = ({ component, ...args }) => {
   const Component = withAuthenticationRequired(component, args)
@@ -46,6 +48,9 @@ function App () {
               <Route exact path="/" element={<ProtectedRoute component={RegestrationMainPage} />} />
               <Route path="MainPage" element={<ProtectedRoute component={MainPage} />} />
               <Route path="MainPage/About" element={<ProtectedRoute component={AboutView} />} />
+              <Route path="PatientMainPage" element={<ProtectedRoute component={PatientMainPage} />} />
+              <Route path="PatientMainPage/About" element={<ProtectedRoute component={PatientAbout}/>} />
+
             </Routes>
           </Auth0ProviderWithRedirectCallback>
         </Router>

@@ -48,7 +48,7 @@ function DoctorInfo(props) {
 
     const registerDoctor = async () => {
       const reqBody = {
-        "email": em,
+        "email": email,
         "first_name": props.user?.name,
         "last_name": props.user?.name,
         "phone": phoneNum,

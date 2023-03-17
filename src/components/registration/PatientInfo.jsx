@@ -4,7 +4,7 @@ import { RiSurgicalMaskFill } from 'react-icons/ri';
 import Form from 'react-bootstrap/Form';
 import { Calendar } from 'primereact/calendar';
 import Button from 'react-bootstrap/Button';
-
+import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios';
 
 function PatientInfo(props) {
@@ -13,12 +13,12 @@ function PatientInfo(props) {
 
     const [email, setEmail] = useState(props.user?.email)
     const [ohipNum, setOhipNum] = useState(null)
-    const [doctorId, setDoctorId] = useState(null)
+    const [doctorId, setDoctorId] = useState("41821634-df00-47fd-bb8a-e9cf5c45ad92")
     const [submit, setSubmit] = useState(false)
     const [phoneNum, setPhoneNum] = useState(null)
 
     const [isError, setIsError] = useState(false);
-    
+    const navigate = useNavigate()
     //Declaring date variables 
     let today = new Date();
     let month = today.getMonth();
@@ -49,8 +49,10 @@ function PatientInfo(props) {
     const req = await axios.post(`http://localhost:5000/api/patient/register`, reqBody)
 
     if (req.status === 200) {
+      console.log(req)
+      sessionStorage.setItem("patient_doctor_id", req.data.doctor_id);
       console.log('Succesfully registered patient... Navigating to main page')
-      navigate('/MainPage')
+      navigate('/PatientMainPage')
     }
     
     console.log('Request failed')
@@ -59,7 +61,7 @@ function PatientInfo(props) {
 
   
   return (
-    <div className="patient_container" >
+    <div className={props.css_style} >
         <div style={{textAlign: "center"}}>
             <h1>Patient Information <RiSurgicalMaskFill /> </h1> 
         </div>
@@ -68,7 +70,8 @@ function PatientInfo(props) {
         <div className="inner_patient_container" id ="patient-info">
             <Form.Group className="mb-3" controlId="formBasicEmail" style={{marginRight: '3rem'}} >
                 <Form.Label>Email address: *</Form.Label>
-                <Form.Control type="email" value={email} placeholder={email} disabled={true}/>
+                {/* <Form.Control type="email" value={email} placeholder={email} disabled={flase}/>  */}
+                <Form.Control type="email" value={email} placeholder={email} onChange={(e) => setEmail(e.target.value)}/>
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="cnt1">
