@@ -19,7 +19,6 @@ function PatientMainPage (props) {
   const [isLoading, setIsLoading] = useState(true)
   const [tasks, setTasks] = useState({});
   const { user, logout } = useAuth0()
-  const [wether, setWether] = useState([]); // prevents multiple renders of the weather class
   const [searchedResult, setSearchedResult] = useState('')
   const [doctoId, setDoctorId] = useState();
   const [patientInfo, SetPatientInfo] = useState(null);

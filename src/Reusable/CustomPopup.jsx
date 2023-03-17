@@ -16,7 +16,7 @@ import { EditorState } from "draft-js";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
 function CustomPopup(props) {
-    const [displayBasic, setDisplayBasic] = useState(false);
+   
     const [categories, setCategories] = useState([]);
     const GMT = (dateString) => {
         const [fullDate, time] = dateString.split('T');
@@ -34,7 +34,7 @@ function CustomPopup(props) {
     const [priority, setPriority] = useState(props?.data?.priority)
     const [onSave, SetOnSave] = useState(true)
     const [date, setDate] = useState(props?.data?.schedule_date);
-    const [ohip, setOhip] = useState(props?.ohip ? props?.ohip : null)
+    const [ohip, setOhip] = useState(props?.data?.patient_id)
     const [editorState, setEditorState] = useState(() =>
     EditorState.createEmpty()
   );
@@ -70,8 +70,8 @@ function CustomPopup(props) {
     }, [task, desc, priority])
 
     useEffect(() => {
-        console.log(date)
-    },[date])
+        console.log(patient_id)
+    },[patient_id])
 
     const updateTask =  async () => {
         console.log("Inside !!!!")
@@ -80,8 +80,8 @@ function CustomPopup(props) {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             "doctor_id": props?.doc_id,    
-            "patient_id": ohip,
             "schedule_date": date,
+            "patient_id": patient_id,
             "appointment_name": task,
             "description": desc,
             "illnesses": categories,
@@ -114,15 +114,13 @@ function CustomPopup(props) {
             />
         <label> Patient OHIP Number: </label> 
         <div class="p-inputgroup">
-            {/* <label> Patient ID: </label>
-            <label style={{marginTop: '12px'}}> {patient_id} </label> */}
             <InputText 
                 id="Patient ID"
                 value={patient_id} 
                 type="text" 
                 className="p-inputtext-lg block" 
-                onChange={(event) => setTask(event.target.value)}
-                disabled={edit}
+                onChange={(event) => setpatient_id(event.target.value)}
+                disabled={edit || props.isPatient}
             />
         </div>
 

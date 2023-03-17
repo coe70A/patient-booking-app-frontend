@@ -91,8 +91,7 @@ function TaskView (props) {
           {/* {tasks?.length !== 0 ? <h1>{JSON.stringify(tasks)}</h1> : null} */}
           {tasks?.map((i) => true ? <div className='myDay-tasks'> 
           <Appointment key= {i.id} task={ i } onDelete={deleteTask} onCheck={completeTask} opening={opening} /> </div> : null)}
-          {/* {tasks?.map((i) => !i.is_completed && i?.is_completed !== null ? <div className='myDay-tasks'> 
-          <Appointment key= {i.id} task={ i } onDelete={deleteTask} onCheck={completeTask} opening={opening} /> </div> : null)} */}
+        
 
         <div className="tasks-panel" style={{marginTop: '100px',padding:'0px 0em',width:'80%'}}>
           
@@ -101,7 +100,7 @@ function TaskView (props) {
       {/* {openPop ? <CustomPopup closeTab={closing} data={taskdData} getCall={getCall}/>: ""} */}
 
       <Dialog header="Patient Informaion" visible={openPop} style={{ width: '50vw' }} onHide={() => setOpenPop(false)}>
-        <CustomPopup closeTab={closing} data={taskdData} getCall={getCall} docID={doc_id} ohip={props.patientInfo?.data?.ohip_number}/>
+        <CustomPopup closeTab={closing} data={taskdData} getCall={getCall} docID={doc_id} ohip={props.patientInfo?.data?.ohip_number} isPatient={true}/>
       </Dialog>
     </div>
   )

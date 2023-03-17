@@ -8,11 +8,12 @@ import { FaRegLightbulb } from 'react-icons/fa'
 import DoctorInfo from '../../registration/DoctorInfo';
 import { useAuth0 } from '@auth0/auth0-react'
 import PatientInfo from '../../registration/PatientInfo';
+import axios from 'axios'
 function AboutView (props) {
   const {tasks, setTasks, getCall, deleteTask, completeTask} = props;
   const [openPop, setOpenPop] = useState(false)
   const [taskdData, setTaskData] = useState()
-  const [regData, setRegData] = useState({})
+  const [regData, setRegData] = useState(null)
   const [tmp, setTmp] = useState(false)
   
   const { user, logout } = useAuth0()
@@ -25,21 +26,29 @@ function AboutView (props) {
       setOpenPop(true)
     }
 
+    useEffect(() => {
+   
+      const fetchTasks = async() => {
+        const DoctorInfo = await axios.get(`http://localhost:5000/api/user/${user.email}`);
+        const doctoId = DoctorInfo?.data.data?.doctor_id;
+        setRegData(DoctorInfo?.data?.data)
+       console.log(regData)
+  
+        return DoctorInfo?.data?.data;
+      }
+      fetchTasks()
+    }, [])
     
   return (
 
     <div className='task-view-background' style={{backgroundImage: 'linear-gradient(to right top, #347a2d, #4b962f, #66b22c, #85cf25, #a8eb12)'}}>
-      <div className="task-view-container">
+      {/* <div className="task-view-container">
         <i className='pi pi-check' style={{'fontSize': '2em'}}></i>
         <h2 className = 'task-type-header'>About</h2>
         
-      </div>
-
-      <DoctorInfo doctorSignUp={true} user={user} css_style={"doc_about_container"} reg_Data={setRegData}/>
-      {/* <Dialog header="Patient Information" visible={openPop} style={{ width: '50vw' }} onHide={() => setOpenPop(false)}>
-        <CustomPopup closeTab={closing} data={taskdData} getCall={getCall}/>
-      </Dialog> */}
-      <PatientInfo patientSignUp={true} user={user} css_style={"doc_about_container"} reg_Data={setRegData}/>
+      </div> */}
+      <DoctorInfo doctorSignUp={true} user={user} css_style={"doc_about_container"} regData={regData}/>
+      
     </div>
   )
 }

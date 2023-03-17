@@ -95,7 +95,7 @@ export default function RegestrationMainPage() {
         }}
       />
       <CompleteSignUp doctorSignUp={doctorSignUp} setDoctorSignUp={() => setDctorSignUp(!doctorSignUp)} userSignUp={userSignUp} setUserSignUp={() => setUserSignUp(!userSignUp)}/>
-      <DoctorInfo doctorSignUp={doctorSignUp} user={user} css_style={"doctor_container"} reg_Data={null}/>
+      <DoctorInfo doctorSignUp={doctorSignUp} user={user} css_style={"doctor_container"} regData={null}/>
       <PatientInfo userSignUp={userSignUp} user={user} css_style={"patient_container"}/>
     </div>
   )

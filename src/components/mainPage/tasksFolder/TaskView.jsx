@@ -26,10 +26,7 @@ function TaskView (props) {
   const [taskdData, setTaskData] = useState()
   const [isHover, setIsHover] = useState(false)
   const { user, logout } = useAuth0()
-  // useEffect(() => {
-  //   console.log("HIIII")
-  //   console.log(tasks)
-  // })
+
 
   const addTask = async (task) => {
   // const [tasks, setTasks] = useState(data)
@@ -41,7 +38,7 @@ function TaskView (props) {
     },  
     body: JSON.stringify({
       "doctor_id": doc_id,
-      "patient_id": "asdasdsad",
+      "patient_id": "",
       "schedule_date": `${year}-${month}-${day}`,
       "appointment_name": task,
       "description": "this is just a routine checkup"
@@ -107,7 +104,7 @@ function TaskView (props) {
       {/* {openPop ? <CustomPopup closeTab={closing} data={taskdData} getCall={getCall}/>: ""} */}
 
       <Dialog header="Patient Informaion" visible={openPop} style={{ width: '50vw' }} onHide={() => setOpenPop(false)}>
-        <CustomPopup closeTab={closing} data={taskdData} getCall={getCall} docID={doc_id}/>
+        <CustomPopup closeTab={closing} data={taskdData} getCall={getCall} docID={doc_id} isPatient={false}/>
       </Dialog>
     </div>
   )

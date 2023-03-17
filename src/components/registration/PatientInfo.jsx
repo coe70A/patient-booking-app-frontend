@@ -12,10 +12,11 @@ function PatientInfo(props) {
     const [date, setDate] = useState(null);
 
     const [email, setEmail] = useState(props.user?.email)
-    const [ohipNum, setOhipNum] = useState(null)
+    const [ohipNum, setOhipNum] = useState(props?.regData?.ohip_number)
     const [doctorId, setDoctorId] = useState("41821634-df00-47fd-bb8a-e9cf5c45ad92")
     const [submit, setSubmit] = useState(false)
-    const [phoneNum, setPhoneNum] = useState(null)
+    const [phoneNum, setPhoneNum] = useState(props?.regData?.phone)
+    const [birthday, setBirthday] = useState("09/01/2023")
 
     const [isError, setIsError] = useState(false);
     const navigate = useNavigate()
@@ -28,6 +29,7 @@ function PatientInfo(props) {
     let nextMonth = (month === 11) ? 0 : month + 1;
     let nextYear = (nextMonth === 0) ? year + 1 : year;
 
+    
     useEffect(() => {
       if(ohipNum !== null && doctorId !== null && phoneNum !== null && date !== null)
         setSubmit(true) //submit button activated
@@ -41,7 +43,7 @@ function PatientInfo(props) {
       "first_name": props.user?.name,
       "last_name": props.user?.name,
       "phone": phoneNum,
-      "birthday": "09/01/2023", // TODO: Add birthday
+      "birthday": birthday, // TODO: Add birthday
       "ohip_number": ohipNum,
       "doctor_id": doctorId
     }  

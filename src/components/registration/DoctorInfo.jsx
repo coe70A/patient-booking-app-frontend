@@ -18,10 +18,10 @@ function DoctorInfo(props) {
     const [date, setDate] = useState();
     
     const [email, setEmail] = useState(props.user?.email)
-    const [clinicName, setClinicName] = useState(props.reg_data !== null? props.reg_data?.clinic?.name : null)
-    const [street, setStreet] = useState(null)
-    const [postal, setPostal] = useState(null)
-    const [phoneNum, setPhoneNum] = useState(null)
+    const [clinicName, setClinicName] = useState(props.regData !== null? props.regData?.clinic_id : null)
+    const [street, setStreet] = useState(props.regData?.street_name)
+    const [postal, setPostal] = useState(props.regData?.postal_code)
+    const [phoneNum, setPhoneNum] = useState(props.regData?.phone)
     const [submit, setSubmit] = useState(false)
     const [tmp_data, setTmp_data] = useState();
     const [isError, setIsError] = useState(false)
@@ -38,6 +38,9 @@ function DoctorInfo(props) {
     let prevYear = (prevMonth === 11) ? year - 1 : year;
     let nextMonth = (month === 11) ? 0 : month + 1;
     let nextYear = (nextMonth === 0) ? year + 1 : year;
+    useEffect(() => {
+      console.log(props.regData)
+    })
 
     useEffect(() => {
       if(clinicName !== null && street !== null && postal !== null && phoneNum !== null)
@@ -78,7 +81,8 @@ function DoctorInfo(props) {
       console.log('Request failed')
       setIsError(true)
     }
-  
+    
+    
     
   return (
     <div className={props.css_style} id ="doctor-info">
