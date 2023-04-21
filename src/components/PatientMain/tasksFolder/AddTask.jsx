@@ -21,13 +21,7 @@ function AddTask ({ onAdd }) {
     }
     onAdd(tempTask)
     // send email
-    emailjs.send('service_1wxbzng', 'template_lw3veqa', tempTask, 'BWIC0zbpY90OqAlQk')
-    .then((response) => {
-      console.log('Email Notification Sent!', response.status, response.text);
-    })
-    .catch((err) => {
-      console.log('FAILED...', err);
-    });
+   
     setText('')
     
     setTempTask('');

@@ -50,11 +50,16 @@ function PatientMainPage (props) {
   //API calls used by all classes
 
   const getCall = async() => {
-    console.log(doctoId)
+    console.log("Hdsfdsdsf")
     const taskResp = await axios.get(`http://localhost:5000/api/doctor/${doctoId}/appointment`);
     setTasks(taskResp.data?.appointments)
 
-    const patientAppointment = await axios.get(`http://localhost:5000/api/patient/${patientInfo?.ohip_number}/appointment`)
+    const patientInfoReq = await axios.get(`http://localhost:5000/api/user/${user.email}`);
+    console.log(patientInfoReq?.data?.data?.ohip_number)
+    console.log(patientInfoReq?.data?.data)
+    console.log(`http://localhost:5000/api/patient/${patientInfoReq?.data?.data?.ohip_number}/appointment`)
+    
+    const patientAppointment = await axios.get(`http://localhost:5000/api/patient/${patientInfoReq?.data?.data?.ohip_number}/appointment`)
       setPatientAppt(patientAppointment.data?.appointments)
 
     console.log("APPT")

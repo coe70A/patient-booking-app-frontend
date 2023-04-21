@@ -14,7 +14,7 @@ import { User } from '@auth0/auth0-react'
 import { useAuth0 } from '@auth0/auth0-react'
 import { ScrollPanel } from 'primereact/scrollpanel';
 import { Dialog } from 'primereact/dialog';
-
+import axios from 'axios'
 function TaskView (props) {
 
   const {tasks, setTasks, getCall, deleteTask, completeTask, doc_id} = props;
@@ -25,6 +25,7 @@ function TaskView (props) {
   const [openPop, setOpenPop] = useState(false)
   const [taskdData, setTaskData] = useState()
   const [isHover, setIsHover] = useState(false)
+  const [regData, setRegData] = useState()
   const { user, logout } = useAuth0()
 
 
@@ -38,7 +39,7 @@ function TaskView (props) {
     },  
     body: JSON.stringify({
       "doctor_id": doc_id,
-      "patient_id": "",
+      "patient_id": "sdfdsfdsfds",
       "schedule_date": `${year}-${month}-${day}`,
       "appointment_name": task,
       "description": "this is just a routine checkup"
@@ -53,6 +54,20 @@ function TaskView (props) {
     }
     getCall()
   }
+
+  
+  useEffect(() => {
+   
+    const fetchTasks = async() => {
+      const DoctorInfo = await axios.get(`http://localhost:5000/api/user/${user.email}`);
+      const doctoId = DoctorInfo?.data.data?.doctor_id;
+      setRegData(DoctorInfo?.data?.data?.name)
+     console.log(regData)
+
+      return DoctorInfo?.data?.data;
+    }
+    fetchTasks()
+  }, [])
 
   const closing = () => {
     setOpenPop(false)
@@ -76,7 +91,7 @@ function TaskView (props) {
     <div className='task-view-background'>
 
       <i className='pi pi-globe' style={{'fontSize': '2em'}}></i>
-      <h2 className = 'task-type-header'>Clinic Name</h2>
+      <h2 className = 'task-type-header'>{regData?.name !== '' ? regData : 'Doctor View'}</h2>
 
 
       <AddTask className='MyDay-AddTask-Container' onAdd = {addTask}/>
