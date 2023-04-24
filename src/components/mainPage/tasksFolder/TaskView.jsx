@@ -15,6 +15,9 @@ import { useAuth0 } from '@auth0/auth0-react'
 import { ScrollPanel } from 'primereact/scrollpanel';
 import { Dialog } from 'primereact/dialog';
 import axios from 'axios'
+// import CalendarView from '../CalendarView'
+import CalendarPopup from '../CalendarPopup'
+
 function TaskView (props) {
 
   const {tasks, setTasks, getCall, deleteTask, completeTask, doc_id} = props;
@@ -23,6 +26,7 @@ function TaskView (props) {
   let month = today.getMonth() + 1;
   let year = today.getFullYear();
   const [openPop, setOpenPop] = useState(false)
+  const [openPop2, setOpenPop2] = useState(true)
   const [taskdData, setTaskData] = useState()
   const [isHover, setIsHover] = useState(false)
   const [regData, setRegData] = useState()
@@ -39,7 +43,7 @@ function TaskView (props) {
     },  
     body: JSON.stringify({
       "doctor_id": doc_id,
-      "patient_id": "sdfdsfdsfds",
+      "patient_id": null,
       "schedule_date": `${year}-${month}-${day}`,
       "appointment_name": task,
       "description": "this is just a routine checkup"
@@ -101,7 +105,7 @@ function TaskView (props) {
       <div className='myDay-tasks'>
       
           {/* {tasks?.length !== 0 ? <h1>{JSON.stringify(tasks)}</h1> : null} */}
-          {tasks?.map((i) => true ? <div className='myDay-tasks'> 
+          {tasks?.map((i) => !i.is_complete ? <div className='myDay-tasks'> 
           <Appointment key= {i.id} task={ i } onDelete={deleteTask} onCheck={completeTask} opening={opening} /> </div> : null)}
           {/* {tasks?.map((i) => !i.is_completed && i?.is_completed !== null ? <div className='myDay-tasks'> 
           <Appointment key= {i.id} task={ i } onDelete={deleteTask} onCheck={completeTask} opening={opening} /> </div> : null)} */}
@@ -110,7 +114,7 @@ function TaskView (props) {
           <Panel header="Patients Already Seen" toggleable collapsed={true} style={{background:'rgba(255,255,255,0.1)'}}>
             <ScrollPanel style={{width: '100%', height: '300px'}}>
             {/* <Appointment opening={opening} key= {i.id} task={ i } onDelete={deleteTask} onCheck={completeTask} />  */}
-              {/* {tasks?.map((i) => i.is_completed && i.is_completed !== null ? <Appointment opening={opening} key= {i.id} task={ i } onDelete={deleteTask} onCheck={completeTask} /> : null)} */}
+              {tasks?.map((i) => i.is_complete && i.is_complete !== null ? <Appointment opening={opening} key= {i.id} task={ i } onDelete={deleteTask} onCheck={completeTask} /> : null)}
             </ScrollPanel>
           
           </Panel>
@@ -119,8 +123,11 @@ function TaskView (props) {
       {/* {openPop ? <CustomPopup closeTab={closing} data={taskdData} getCall={getCall}/>: ""} */}
 
       <Dialog header="Patient Informaion" visible={openPop} style={{ width: '50vw' }} onHide={() => setOpenPop(false)}>
-        <CustomPopup closeTab={closing} data={taskdData} getCall={getCall} docID={doc_id} isPatient={false}/>
+        <CustomPopup tasks={tasks} setTasks={setTasks} closeTab={closing} data={taskdData} getCall={getCall} docID={doc_id} isPatient={false}/>
       </Dialog>
+      {/* <Dialog header="Appointment Calendar" visible={openPop2} style={{ width: '50vw' }}>
+      <CalendarPopup tasks={tasks} />
+      </Dialog> */}
     </div>
   )
 }

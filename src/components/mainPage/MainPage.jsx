@@ -56,6 +56,8 @@ function MainPage (props) {
 
   const getCall = async() => {
     console.log(doctoId)
+
+    console.log("INSIDE GETCALL")
     const taskResp = await axios.get(`http://localhost:5000/api/doctor/${doctoId}/appointment`);
 
     console.log("APPT")
@@ -65,12 +67,30 @@ function MainPage (props) {
 
   // Delete Task
   const deleteTask = async (id) => {
-   
+    console.log("INSIDE DELTE TASK")
+    const res = await fetch(`http://localhost:5000/api/doctor/appointment/${id}`, { method: 'DELETE' })
+    // const data = await res.json()
+    await getCall()
+    // if(data?.code.toString() === '200'){
+    //   setTasks(tasks.filter((task) => task.id !== id ))
+    // }
   }
 
 
   const completeTask =  async (id, isComplete) => {
-  
+    const requestOptions = {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        is_complete: isComplete
+
+      })
+  };
+  await fetch(`http://localhost:5000/api/doctor/appointment/${id}`, requestOptions)
+      //.then(response => response.json())
+      .catch(err => console.log(err))
+    await getCall()
+      //setTasks([...tasks, {is_completed: isComplete}])
   }
 
   // useEffect(() => {
@@ -132,6 +152,8 @@ function MainPage (props) {
         {isLoading ?
         <img style={{ width: '80%', height: '80%' }} src={require('../../Images/Turtle_Loading.gif')} alt="loading-gif" /> : null }
         {(options?.all & !isLoading)? <TaskView tasks={tasks} setTasks={setTasks} getCall={getCall} deleteTask={deleteTask} completeTask={completeTask} doc_id={doctoId}/> : null}
+        {/* {(options?.completed & !isLoading) ? <CompletedView tasks={tasks} completeTask={completeTask} deleteTask={deleteTask} getCall={getCall}/> : null} */}
+
         {/* {(options?.completed & !isLoading) ? <AboutView tasks={tasks} completeTask={completeTask} deleteTask={deleteTask} getCall={getCall}/> : null} */}
         {(options?.today & !isLoading) ? <TodayView tasks={tasks} completeTask={completeTask} deleteTask={deleteTask} getCall={getCall}/> : null}
         {(options?.calendarView & !isLoading) ? <CalendarView tasks={tasks} setTasks={setTasks} /> : null}

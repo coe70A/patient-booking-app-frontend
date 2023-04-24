@@ -17,7 +17,7 @@ import { Dialog } from 'primereact/dialog';
 
 function TaskView (props) {
 
-  const {tasks, setTasks, getCall, deleteTask, completeTask, doc_id, patientInfo} = props;
+  const {tasks, allTasks, setTasks, getCall, deleteTask, completeTask, doc_id, patientInfo} = props;
   const today = new Date()
   let day = today.getDate();
   let month = today.getMonth() + 1;
@@ -42,7 +42,7 @@ function TaskView (props) {
     body: JSON.stringify({
       "doctor_id": doc_id,
       "patient_id": props.patientInfo?.data?.ohip_number,
-      "schedule_date": `${year}-${month}-${day}`,
+      "schedule_date": null,
       "appointment_name": task,
       "description": "this is just a routine checkup"
     })
@@ -99,8 +99,8 @@ function TaskView (props) {
       </div>
       {/* {openPop ? <CustomPopup closeTab={closing} data={taskdData} getCall={getCall}/>: ""} */}
 
-      <Dialog header="Patient Informaion" visible={openPop} style={{ width: '50vw' }} onHide={() => setOpenPop(false)}>
-        <CustomPopup closeTab={closing} data={taskdData} getCall={getCall} docID={doc_id} ohip={props.patientInfo?.data?.ohip_number} isPatient={true}/>
+      <Dialog header="Patient Information" visible={openPop} style={{ width: '50vw' }} onHide={() => setOpenPop(false)}>
+        <CustomPopup tasks={allTasks} setTasks={setTasks} closeTab={closing} data={taskdData} getCall={getCall} docID={doc_id} ohip={props.patientInfo?.data?.ohip_number} isPatient={true}/>
       </Dialog>
     </div>
   )

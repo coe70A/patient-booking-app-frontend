@@ -150,7 +150,7 @@ function PatientMainPage (props) {
         <div style={{flex: 1, overflow: 'auto'}}>
         {/* {isLoading ?
         <img style={{ width: '80%', height: '80%' }} src={require('../../Images/Turtle_Loading.gif')} alt="loading-gif" /> : null } */}
-        {(options?.all & !isLoading)? <TaskView tasks={patientAppt} setTasks={setPatientAppt} getCall={getCall} deleteTask={deleteTask} completeTask={completeTask} doc_id={doctoId} patientInfo={patientInfo}/> : null}
+        {(options?.all & !isLoading)? <TaskView allTasks={tasks} tasks={patientAppt} setTasks={setPatientAppt} getCall={getCall} deleteTask={deleteTask} completeTask={completeTask} doc_id={doctoId} patientInfo={patientInfo}/> : null}
         {(options?.calendarView & !isLoading) ? <CalendarView tasks={tasks} setTasks={setTasks} /> : null}
         </div>
         

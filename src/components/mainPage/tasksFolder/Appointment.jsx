@@ -17,8 +17,12 @@ function Appointment ({ task, onDelete, onCheck, opening }) {
 
   useEffect(() => {
     setCategories([])
+    console.log("CATGORIES")
+    console.log(task)
+    console.log(categories)
+    console.log(task?.illnesses)
     if(categories?.length !== task?.categories?.length){
-      task?.categories?.map((i) => setCategories(oldarr => [...oldarr, `${i} `]) && console.log(i))
+      task?.[categories]?.map((i) => setCategories(oldarr => [...oldarr, `${i} `]) && console.log(i))
         
     }
 },[] )

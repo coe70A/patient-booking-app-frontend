@@ -11,11 +11,23 @@ import { Button } from 'primereact/button'
 import { Chips } from 'primereact/chips';
 import 'primereact/resources/themes/tailwind-light/theme.css'    
 
+import { PrimeIcons } from 'primereact/api';
+
+import { Message } from 'primereact/message';
+        
+
 import { Editor } from "react-draft-wysiwyg";
 import { EditorState } from "draft-js";
+
+import { Dialog } from 'primereact/dialog';
+
+
+import CalendarPopup from '../components/mainPage/CalendarPopup'
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
 function CustomPopup(props) {
+
+    const {tasks, setTasks} = props
    
     const [categories, setCategories] = useState([]);
     const GMT = (dateString) => {
@@ -35,6 +47,12 @@ function CustomPopup(props) {
     const [onSave, SetOnSave] = useState(true)
     const [date, setDate] = useState(props?.data?.schedule_date);
     const [ohip, setOhip] = useState(props?.data?.patient_id)
+
+    const [isError, setIsError] = useState(false)
+
+
+  const [openPop, setOpenPop] = useState(false)
+
     const [editorState, setEditorState] = useState(() =>
     EditorState.createEmpty()
   );
@@ -57,8 +75,11 @@ function CustomPopup(props) {
 
     useEffect(() => {
         setCategories([])
-        if(categories?.length !== props?.data?.categories?.length){
-            props?.data?.categories?.map((i) => setCategories(oldarr => [...oldarr, i]) && console.log(i))
+        console.log("POROPS>DATA")
+        console.log(props?.data)
+        const cat = props?.data?.illnesses?.split(',')
+        if(categories?.length !== cat){
+            cat?.map((i) => setCategories(oldarr => [...oldarr, i]) && console.log(i))
             
         }
     },[] )
@@ -92,13 +113,41 @@ function CustomPopup(props) {
         
         )
       };
-      await fetch(`http://localhost:5000/api/doctor/appointment/${props?.data?.id}`, requestOptions)
-          //.then(response => response.json())
-          .catch(err => console.log(err))
-          props.getCall()
+        // try {
+
+            const apiResp = await fetch(`http://localhost:5000/api/doctor/appointment/${props?.data?.id}`, requestOptions)
+
+            console.log("RESPPPP")
+            console.log(apiResp)
+            console.log("JS")
+            const resp = await apiResp?.json()
+            console.log(resp)
+            if(resp?.error === 'no valid timeslot'){
+                setIsError(true)
+            } else {
+                props.getCall()
+
+            }
+            //.then(response => response.json())
+            // .catch(err => {console.log("WE GOT ERROR"); console.log(err)})
+        // } catch(err) {
+        //     console.log("WE GOT A ERROR")
+        //     setIsError(true)
+        // }
           //setTasks([...tasks, {is_completed: isComplete}])
         
       }
+
+
+      const closing = () => {
+        setOpenPop(false)
+      }
+    
+      const opening = (e) => {
+        // setTaskData(e)
+        setOpenPop(true)
+      }
+    
 
   return (
     <div id="task-editor-container" >
@@ -132,12 +181,22 @@ function CustomPopup(props) {
             <ToggleButton checked={props?.data?.is_completed} onLabel="Completed" offLabel="In Progress" onIcon="pi pi-check" offIcon="pi pi-times" aria-label="Confirmation" disabled={true}/>
         </div>
 
+        
+        <label>Appointment Calendar:</label>
+        <div class="p-inputgroup">
+            <i className="pi pi-calendar" onClick={() => setOpenPop(true)} style={{ fontSize: '30px', fontWeight:'50', color:'#919191', cursor:'pointer' }}></i>
+        </div>
+        <Dialog header="Appointment Calendar" visible={openPop} style={{position:'absolute', top:'15%', width: '60vw'}} onHide={() => setOpenPop(false)}>
+            <CalendarPopup setTasks={setTasks} tasks={tasks} />
+        </Dialog>
         <label>Date:</label>
         <div class="p-inputgroup">
             <Calendar value={date ? new Date(date) : date => GMT(date)} onChange={(e) => setDate(e.value)} showTime hourFormat="12" disabled={edit} showIcon />
             {/* <Calendar id="icon" value={date ? new Date(date) : null} onChange={(e) => setDate(e.value)} disabled={edit} showIcon /> */}
         </div>
-
+        {isError ? 
+        <Message severity="error" text="Invalid timeslot. Check the appointment calendar for a valid appointment time" /> : null
+        }
         <label>Diseases</label>
         <div className="p-inputgroup">
             <Chips value={categories} onChange={(e) => setCategories(e.value)} disabled={edit}/>
