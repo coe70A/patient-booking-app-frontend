@@ -29,7 +29,7 @@ function AboutView (props) {
     useEffect(() => {
    
       const fetchTasks = async() => {
-        const DoctorInfo = await axios.get(`http://localhost:5000/api/user/${user.email}`);
+        const DoctorInfo = await axios.get(`https://patientbooking.azurewebsites.net/api/user/${user.email}`);
         const doctoId = DoctorInfo?.data.data?.doctor_id;
         setRegData(DoctorInfo?.data?.data)
        console.log(regData)

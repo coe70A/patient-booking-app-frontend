@@ -115,7 +115,7 @@ function CustomPopup(props) {
       };
         // try {
 
-            const apiResp = await fetch(`http://localhost:5000/api/doctor/appointment/${props?.data?.id}`, requestOptions)
+            const apiResp = await fetch(`https://patientbooking.azurewebsites.net/api/doctor/appointment/${props?.data?.id}`, requestOptions)
 
             console.log("RESPPPP")
             console.log(apiResp)

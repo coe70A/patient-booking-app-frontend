@@ -58,7 +58,7 @@ function MainPage (props) {
     console.log(doctoId)
 
     console.log("INSIDE GETCALL")
-    const taskResp = await axios.get(`http://localhost:5000/api/doctor/${doctoId}/appointment`);
+    const taskResp = await axios.get(`https://patientbooking.azurewebsites.net/api/doctor/${doctoId}/appointment`);
 
     console.log("APPT")
     console.log(taskResp.data?.appointments)
@@ -68,7 +68,7 @@ function MainPage (props) {
   // Delete Task
   const deleteTask = async (id) => {
     console.log("INSIDE DELTE TASK")
-    const res = await fetch(`http://localhost:5000/api/doctor/appointment/${id}`, { method: 'DELETE' })
+    const res = await fetch(`https://patientbooking.azurewebsites.net/api/doctor/appointment/${id}`, { method: 'DELETE' })
     // const data = await res.json()
     await getCall()
     // if(data?.code.toString() === '200'){
@@ -86,7 +86,7 @@ function MainPage (props) {
 
       })
   };
-  await fetch(`http://localhost:5000/api/doctor/appointment/${id}`, requestOptions)
+  await fetch(`https://patientbooking.azurewebsites.net/api/doctor/appointment/${id}`, requestOptions)
       //.then(response => response.json())
       .catch(err => console.log(err))
     await getCall()
@@ -96,7 +96,7 @@ function MainPage (props) {
   // useEffect(() => {
   
   //   const fetchTasks = async() => {
-  //   const taskResp = await axios.get(`http://localhost:5000/api/doctor/${doctoId}/appointment`);
+  //   const taskResp = await axios.get(`https://patientbooking.azurewebsites.net/api/doctor/${doctoId}/appointment`);
 
   //     console.log("TASK RESP")
   //     console.log(taskResp.data?.appointments)
@@ -121,7 +121,7 @@ function MainPage (props) {
   useEffect(() => {
    
     const fetchTasks = async() => {
-      const DoctorInfo = await axios.get(`http://localhost:5000/api/user/${user.email}`);
+      const DoctorInfo = await axios.get(`https://patientbooking.azurewebsites.net/api/user/${user.email}`);
     
 
       const doctoId = DoctorInfo?.data.data?.doctor_id;
@@ -130,7 +130,7 @@ function MainPage (props) {
       console.log("DOCO ID");
       
       setDoctorId(doctoId)
-      const taskResp = await axios.get(`http://localhost:5000/api/doctor/${doctoId}/appointment`);
+      const taskResp = await axios.get(`https://patientbooking.azurewebsites.net/api/doctor/${doctoId}/appointment`);
 
       console.log("APPT")
       console.log(taskResp.data?.appointments)

@@ -36,7 +36,7 @@ function TaskView (props) {
   const addTask = async (task) => {
   // const [tasks, setTasks] = useState(data)
   // const [tempTask, setTempTask] = useState('');
-  const res = await fetch(`http://localhost:5000/api/patient/appointment`, {
+  const res = await fetch(`https://patientbooking.azurewebsites.net/api/patient/appointment`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -63,7 +63,7 @@ function TaskView (props) {
   useEffect(() => {
    
     const fetchTasks = async() => {
-      const DoctorInfo = await axios.get(`http://localhost:5000/api/user/${user.email}`);
+      const DoctorInfo = await axios.get(`https://patientbooking.azurewebsites.net/api/user/${user.email}`);
       const doctoId = DoctorInfo?.data.data?.doctor_id;
       setRegData(DoctorInfo?.data?.data?.name)
      console.log(regData)

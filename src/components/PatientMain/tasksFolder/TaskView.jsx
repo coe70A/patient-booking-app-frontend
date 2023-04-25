@@ -34,7 +34,7 @@ function TaskView (props) {
   const addTask = async (task) => {
   // const [tasks, setTasks] = useState(data)
   // const [tempTask, setTempTask] = useState('');
-  const res = await fetch(`http://localhost:5000/api/patient/appointment`, {
+  const res = await fetch(`https://patientbooking.azurewebsites.net/api/patient/appointment`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'

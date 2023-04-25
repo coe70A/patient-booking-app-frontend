@@ -37,7 +37,7 @@ function CalendarPopup(props){
   
 
   const fetchTasks = async() => {
-    const tasksResp = await fetch(`http://localhost:5000/api/tasks/user/${user.email}`);
+    const tasksResp = await fetch(`https://patientbooking.azurewebsites.net/api/tasks/user/${user.email}`);
     return tasksResp;
   }
 

@@ -67,7 +67,7 @@ function DoctorInfo(props) {
         }
       }    
       setTmp_data(reqBody)
-      const req = await axios.post(`http://localhost:5000/api/doctor/register`, reqBody)
+      const req = await axios.post(`https://patientbooking.azurewebsites.net/api/doctor/register`, reqBody)
 
       if (req.status === 200) {
         sessionStorage.setItem("doctor_id", req.data.doctor_id);

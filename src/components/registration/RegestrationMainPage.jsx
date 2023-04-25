@@ -21,7 +21,7 @@ export default function RegestrationMainPage() {
 
     useEffect(() => {
       const fetchTasks = async() => {
-      const doc_pat = await axios.get(`http://localhost:5000/api/user/${user?.email}`);
+      const doc_pat = await axios.get(`https://patientbooking.azurewebsites.net/api/user/${user?.email}`);
   
         return doc_pat.data;
       }

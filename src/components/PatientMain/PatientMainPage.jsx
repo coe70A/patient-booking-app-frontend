@@ -51,15 +51,15 @@ function PatientMainPage (props) {
 
   const getCall = async() => {
     console.log("Hdsfdsdsf")
-    const taskResp = await axios.get(`http://localhost:5000/api/doctor/${doctoId}/appointment`);
+    const taskResp = await axios.get(`https://patientbooking.azurewebsites.net/api/doctor/${doctoId}/appointment`);
     setTasks(taskResp.data?.appointments)
 
-    const patientInfoReq = await axios.get(`http://localhost:5000/api/user/${user.email}`);
+    const patientInfoReq = await axios.get(`https://patientbooking.azurewebsites.net/api/user/${user.email}`);
     console.log(patientInfoReq?.data?.data?.ohip_number)
     console.log(patientInfoReq?.data?.data)
-    console.log(`http://localhost:5000/api/patient/${patientInfoReq?.data?.data?.ohip_number}/appointment`)
+    console.log(`https://patientbooking.azurewebsites.net/api/patient/${patientInfoReq?.data?.data?.ohip_number}/appointment`)
     
-    const patientAppointment = await axios.get(`http://localhost:5000/api/patient/${patientInfoReq?.data?.data?.ohip_number}/appointment`)
+    const patientAppointment = await axios.get(`https://patientbooking.azurewebsites.net/api/patient/${patientInfoReq?.data?.data?.ohip_number}/appointment`)
       setPatientAppt(patientAppointment.data?.appointments)
 
     console.log("APPT")
@@ -72,13 +72,13 @@ function PatientMainPage (props) {
   useEffect(() => {
   
     const fetchTasks = async() => {
-    const taskResp = await axios.get(`http://localhost:5000/api/doctor/${doctoId}/appointment`);
+    const taskResp = await axios.get(`https://patientbooking.azurewebsites.net/api/doctor/${doctoId}/appointment`);
 
       console.log("TASK RESP")
       console.log(taskResp.data?.appointments)
 
 
-    const patientAppointment = await axios.get(`http://localhost:5000/api/patient/${patientInfo?.ohip_number}/appointment`)
+    const patientAppointment = await axios.get(`https://patientbooking.azurewebsites.net/api/patient/${patientInfo?.ohip_number}/appointment`)
       setPatientAppt(patientAppointment.data?.appointments)
 
     return taskResp.data?.appointments;
@@ -101,7 +101,7 @@ function PatientMainPage (props) {
   useEffect(() => {
    
     const fetchTasks = async() => {
-      const patientInfo = await axios.get(`http://localhost:5000/api/user/${user.email}`);
+      const patientInfo = await axios.get(`https://patientbooking.azurewebsites.net/api/user/${user.email}`);
     
       console.log(patientInfo.data)
 
@@ -111,13 +111,13 @@ function PatientMainPage (props) {
       console.log("DOCO ID");
       
       setDoctorId(doctoId)
-      const taskResp = await axios.get(`http://localhost:5000/api/doctor/${doctoId}/appointment`);
+      const taskResp = await axios.get(`https://patientbooking.azurewebsites.net/api/doctor/${doctoId}/appointment`);
 
       console.log("APPT")
       console.log(taskResp.data?.appointments)
       setTasks(taskResp.data?.appointments)
       
-      const patientAppointment = await axios.get(`http://localhost:5000/api/patient/${OHIP}/appointment`)
+      const patientAppointment = await axios.get(`https://patientbooking.azurewebsites.net/api/patient/${OHIP}/appointment`)
       setPatientAppt(patientAppointment.data?.appointments)
 
       return patientInfo.data;

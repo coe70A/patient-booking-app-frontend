@@ -27,7 +27,7 @@ function PatientAbout (props) {
     useEffect(() => {
    
       const fetchTasks = async() => {
-        const PatientInfo = await axios.get(`http://localhost:5000/api/user/${user.email}`);
+        const PatientInfo = await axios.get(`https://patientbooking.azurewebsites.net/api/user/${user.email}`);
         
         setRegData(PatientInfo?.data?.data)
        console.log(regData)
