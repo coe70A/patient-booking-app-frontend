@@ -11,6 +11,9 @@ import { Button } from 'primereact/button'
 import { Chips } from 'primereact/chips';
 import 'primereact/resources/themes/tailwind-light/theme.css'    
 
+
+import { Slider } from 'primereact/slider';
+        
 import { PrimeIcons } from 'primereact/api';
 
 import { Message } from 'primereact/message';
@@ -48,6 +51,7 @@ function CustomPopup(props) {
     const [date, setDate] = useState(props?.data?.schedule_date);
     const [ohip, setOhip] = useState(props?.data?.patient_id)
 
+    const [duration, setDuration] = useState();
     const [isError, setIsError] = useState(false)
 
 
@@ -56,6 +60,8 @@ function CustomPopup(props) {
     const [editorState, setEditorState] = useState(() =>
     EditorState.createEmpty()
   );
+
+//   setDuration(10);
 
     //Declaring date variables 
     let today = new Date();
@@ -106,6 +112,7 @@ function CustomPopup(props) {
             "appointment_name": task,
             "description": desc,
             "illnesses": categories,
+            "duration": duration
         }
         
         
@@ -148,7 +155,7 @@ function CustomPopup(props) {
         setOpenPop(true)
       }
     
-
+      const [value2, setValue2] = useState(50);
   return (
     <div id="task-editor-container" >
      
@@ -194,6 +201,10 @@ function CustomPopup(props) {
             <Calendar value={date ? new Date(date) : date => GMT(date)} onChange={(e) => setDate(e.value)} showTime hourFormat="12" disabled={edit} showIcon />
             {/* <Calendar id="icon" value={date ? new Date(date) : null} onChange={(e) => setDate(e.value)} disabled={edit} showIcon /> */}
         </div>
+        <label>Duration: {duration}</label>
+        {/* <Slider value={value2} onChange={(e) => setValue2(e.value)} /> */}
+        <Slider  style={{marginTop:'10px', marginBottom: '30px'}} value={duration} onChange={(e) => setDuration(e.value)} className="w-14rem mb-8" step={10}/>
+
         {isError ? 
         <Message severity="error" text="Invalid timeslot. Check the appointment calendar for a valid appointment time" /> : null
         }

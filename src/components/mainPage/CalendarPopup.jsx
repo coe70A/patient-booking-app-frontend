@@ -51,9 +51,20 @@ function CalendarPopup(props){
 
 // jason's version end: new Date(task.schedule_date)
 
-  const events = tasks.map(({created_on, schedule_date, ...item}) => {
-    return ({start: new Date(Date.parse(schedule_date)),
-             end: new Date(Date.parse(schedule_date)),
+  const events = tasks.map(({created_on, schedule_date, duration, ...item}) => {
+    const startDate = new Date(Date.parse(schedule_date))
+    let endDate = new Date(Date.parse(schedule_date))
+    if(duration) {
+
+      const currentMinutes = startDate.getMinutes();
+      
+      const newMinutes = currentMinutes + duration;
+      endDate.setMinutes(newMinutes);
+
+    }
+
+    return ({start: startDate,
+             end: endDate,
              ...item})
             })
 

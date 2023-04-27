@@ -50,7 +50,7 @@ function Appointment ({ task, onDelete, onCheck, opening }) {
 
 
           <div style={{height:'100%'}} onClick={(event) =>  event.stopPropagation() } >
-            <Checkbox style={{width:'50px',height:'100%'}} onChange={(event)=>  handleCheckbox() } checked={task?.is_completed}></Checkbox>
+            {/* <Checkbox style={{width:'50px',height:'100%'}} onChange={(event)=>  handleCheckbox() } checked={task?.is_completed}></Checkbox> */}
           </div>
 
           <span className="task-name-container">
@@ -62,8 +62,8 @@ function Appointment ({ task, onDelete, onCheck, opening }) {
           <Chips style={{border:'none'}} value={categories} onChange={(e) => setCategories(e.value)} disabled={true}/>
 
           <div style={{width:"100px"}}>
-            <Button className='p-button-rounded p-button-outlined' style={{zIndex:"9000"}} icon='pi pi-trash' onClick={(event) =>    {onDelete(task.id); event.stopPropagation() }} >          
-            </Button>
+            {/* <Button className='p-button-rounded p-button-outlined' style={{zIndex:"9000"}} icon='pi pi-trash' onClick={(event) =>    {onDelete(task.id); event.stopPropagation() }} >          
+            </Button> */}
           </div>
         </div>
     );

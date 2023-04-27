@@ -57,7 +57,7 @@ function HeaderBar ({onSearch}) {
     );
   return (
 
-        <Menubar model={items} start={start} end={searchBar} style={{width: '100vw', height:'5em'}}/>
+        <Menubar model={items} start={start} style={{width: '100vw', height:'5em'}}/>
   )
 }
 
